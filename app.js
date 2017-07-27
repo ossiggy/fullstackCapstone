@@ -1,5 +1,22 @@
 $(".changeable").on("blur", updateState)
 $("#income").on("blur", rebalance)
+$('body').on('focus', '[contenteditable]', function() {
+    var $this = $(this);
+    $this.data('before', $this.html());
+    return $this;
+}).on('blur keyup paste input', '[contenteditable]', function() {
+    var $this = $(this);
+    if ($this.data('before') !== $this.html()) {
+        $this.data('before', $this.html());
+        $this.trigger('change');
+    }
+    if($this.hasClass("amount")){
+      doBalance($this);
+    }
+    if($this.hasClass("income")){
+      rebalance($this)
+    }
+});
 // will also need a function that takes each change and, if change is made in certain
 // column, add or subtract from monthly income, remaining funds, and total bill
 // amount left over, respectively
@@ -17,26 +34,23 @@ function updateState(event){
 }
 
 function checkClass(changedContents){
-  var value = Number(changedContents.html())
+  var amountValue = Number(changedContents.html())
   var income = Number($("#income").html())
-  if(changedContents.hasClass("amount")&&Number.isInteger(value)){
-    amountTotal = value + amountTotal
+  if(changedContents.hasClass("amount")&&Number.isInteger(amountValue)){
+    amountTotal = amountValue + amountTotal
     remainingFunds = income-amountTotal
     $("#remainingFunds").html(remainingFunds)
   }
-  else{
-    console.log("not a number!")
-  }
-  // if(changedContents.hasClass("due-date")){
-
-  // }
-  // if(changedContents.hasClass("balance")){
-
-  // }
 }
 
-function rebalance(event){
-  var income = $(event.target).html()
-  var amount = $(".amount")
+function doBalance(amount){
+    var amountValue = Number(amount.html())
+    var balance = Number(amount.parent().children('td.balance').html())
+    balance=0+amountValue
+    amount.parent().children('td.balance').html(balance)
+}
+
+function rebalance(newIncome){
+  var income = newIncome.html()
   $("#remainingFunds").html(income-amountTotal)
 }
