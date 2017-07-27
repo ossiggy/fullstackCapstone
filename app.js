@@ -16,13 +16,9 @@ $('body').on('focus', '[contenteditable]', function() {
       totalAmount();
     }
 });
-// will also need a function that takes each change and, if change is made in certain
-// column, add or subtract from monthly income, remaining funds, and total bill
-// amount left over, respectively <--- completed
 
-// extract value from user object balance
-// have a form extract data from our table to submit
-// let amountTotal = 0
+// extract value from user object
+// have a form compile data from our table to submit
 
 function doBalance(amount){
     var amountValue = Number(amount.html())
