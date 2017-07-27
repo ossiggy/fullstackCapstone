@@ -1,5 +1,3 @@
-$(".changeable").on("blur", updateState)
-// $("#income").on("blur", rebalance)
 $('body').on('focus', '[contenteditable]', function() {
     var $this = $(this);
     $this.data('before', $this.html());
@@ -24,30 +22,12 @@ $('body').on('focus', '[contenteditable]', function() {
 
 // extract value from user object balance
 // have a form extract data from our table to submit
-let amountTotal = 0
-
-function updateState(event){
-  var target = $(event.target)
-  var contents = target.html()
-  if(contents!=$(this).html()){
-    contents = $(this).html()
-  }
-  checkClass(target)
-}
-
-function checkClass(changedContents){
-  var amountValue = Number(changedContents.html())
-  var income = Number($("#income").html())
-  if(changedContents.hasClass("amount")&&Number.isInteger(amountValue)){
-    // amountTotal = amountValue + amountTotal
-    // remainingFunds = income-amountTotal
-    // $("#remainingFunds").html(remainingFunds)
-  }
-}
+// let amountTotal = 0
 
 function doBalance(amount){
     var amountValue = Number(amount.html())
     var balance = Number(amount.parent().children('td.balance').html())
+    // 0 will eventually be replaced by the user's saved balance state
     balance=0+amountValue
     amount.parent().children('td.balance').html(balance)
 }
@@ -59,7 +39,6 @@ function totalAmount(){
     var newNum = Number($(this).html())
     totalSpent+=newNum
   })
-  console.log(totalSpent)
   var remainingFunds = income - totalSpent
   $("#remainingFunds").html(remainingFunds)
 }
