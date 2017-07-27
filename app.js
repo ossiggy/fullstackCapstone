@@ -10,10 +10,10 @@ $('body').on('focus', '[contenteditable]', function() {
     }
     if($this.hasClass("amount")){
       doBalance($this);
-      totalAmount();
+      remainingFunds();
     }
     if($this.hasClass("income")){
-      totalAmount();
+      remainingFunds();
     }
 });
 
@@ -28,7 +28,7 @@ function doBalance(amount){
     amount.parent().children('td.balance').html(balance)
 }
 
-function totalAmount(){
+function remainingFunds(){
   var income = Number($("#income").html())
   var totalSpent = 0
   $(".amount").each(function(){
