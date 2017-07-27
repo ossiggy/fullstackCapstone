@@ -5,13 +5,26 @@ $(".changeable").on("blur", updateState)
 // amount left over, respectively
 
 function updateState(event){
-  var target = $(event.target);
+  var target = $(event.target)
   var contents = target.html()
   if(contents!=$(this).html()){
     contents = $(this).html()
   }
+  // console.log(Object.keys(target))
+  checkClass(target)
 }
 
-function checkChangeLocation(change){
-  if(change.className===)
+function checkClass(changedContents){
+  var value = changedContents.html()
+  console.log(value)
+  if(changedContents.hasClass("amount")){
+    var income = $("#income").value
+  }
+  if(changedContents.hasClass("due-date")){
+
+  }
+  if(changedContents.hasClass("balance")){
+
+  }
 }
+
