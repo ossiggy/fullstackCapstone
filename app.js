@@ -10,16 +10,18 @@ $('body').on('focus', '[contenteditable]', function() {
         $this.data('before', $this.html());
         $this.trigger('change');
     }
-    if($this.hasClass("amount")){
+    if($this.hasClass('amount')){
       doBalance($this);
       remainingFunds();
     }
-    if($this.hasClass("income")){
+    if($this.hasClass('income')){
       remainingFunds();
     }
 });
 
-$('form').on("submit", saveState);
+$('.pay-day').on('click', payDay)
+$('.pay-it').on('click', payBill)
+$('form').on('submit', saveState);
 
 // extract value from user object
 // have a form compile data from our table to submit
@@ -46,25 +48,32 @@ function remainingFunds(){
   $("#remainingFunds").html(remainingFunds)
 }
 
-function saveState(event) {
-  event.preventDefault()
-// alert("Information Saved!")
+function payBill(event){
+
 }
 
+function payDay(event){
+
+}
+
+// function saveState(event) {
+//   event.preventDefault()
+//   const savedState = Object.assign({}, newState, loadedState)
+// // alert("Information Saved!")
+// }
 
 function loadState(event){
   // var url = "/budgets/:id"
   $.getJSON("./seed-data.json", function(response){
-    loadedState = response
-    render(loadedState)
+    storeLocally(response)
     remainingFunds()
 	})
 }
 
-// function storeLocally(state) {
-//   loadedState = state
-//   render(loadedState)
-// }
+function storeLocally(state) {
+  loadedState = state
+  render(loadedState)
+}
 
 function render(state){
   $(".income").html(`${state.availableIncome}`)
@@ -77,12 +86,33 @@ function show(category){
 $(`#${category.table}`).append(
         `<tr>
         <th>${category.name}</th>
-        <td contenteditable="true" class="changeable amount">0</td>
-        <td contenteditable="true" class="changeable goal">${category.goal}</td>
-        <td class="balance">${category.balance}</td>
+        <td contenteditable="true" class="changeable amount" data-column="amount">0</td>
+        <td><button id="pay-it">Pay It</button><td>
         </tr>`)
 }
+        // <td contenteditable="true" class="changeable goal" data-column="goal">${category.goal}</td>
+        // <td contenteditable="false" class="balance" data-column="balance">${category.balance}</td>
+
 // WHEN USER SAVES:
+
+// search for cells with `data-` attr
+// use the names of each `data-` attr to make obj key
+// use the text contents of those cells to get the value
+
+// $("button").on("click", formSubmit)
+
+const newState = {}
+
+function saveState(e){
+  event.preventDefault()
+  var fields = $("td[contenteditable]")
+  $.each(fields, function(i, field) {
+    const fieldName = field.dataset.column;
+    newState[fieldName] = field.textContent;
+  })
+  console.log(newState)
+}
+
 // save categories as new state
 // compare new state to old state
 // compile into one state
@@ -101,6 +131,5 @@ $(`#${category.table}`).append(
 // - jQuery saves these changes in the local state 
 // - When user is done (for now signified by them pressing a button manually) 
 // local state is used to update DB
-
 
 
