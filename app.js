@@ -19,8 +19,8 @@ $('body').on('focus', '[contenteditable]', function() {
     }
 });
 
-$('.pay-day').on('click', payDay)
-$('.pay-it').on('click', payBill)
+$('#pay-day').on('click', payDay)
+$('#pay-it').on('click', payBill)
 $('form').on('submit', saveState);
 
 // extract value from user object
@@ -49,11 +49,14 @@ function remainingFunds(){
 }
 
 function payBill(event){
-
+  
 }
 
 function payDay(event){
-
+  $.getJSON('./seed-data.json', function(response){
+    weeklyIncome = response.weeklyIncome
+    console.log(weeklyIncome)
+  })
 }
 
 // function saveState(event) {
