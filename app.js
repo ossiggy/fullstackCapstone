@@ -49,20 +49,24 @@ function remainingFunds(){
 }
 
 function payBill(event){
-  
+  $.getJSON('./seed-data.json', function(response){
+    console.log(response)
+  })
 }
 
 function payDay(event){
   $.getJSON('./seed-data.json', function(response){
     weeklyIncome = response.weeklyIncome
-    console.log(weeklyIncome)
+    availableIncome = response.availableIncome
+    availableIncome += weeklyIncome
+    console.log(availableIncome)
   })
 }
 
 // function saveState(event) {
 //   event.preventDefault()
 //   const savedState = Object.assign({}, newState, loadedState)
-// // alert("Information Saved!")
+//   alert("Information Saved!")
 // }
 
 function loadState(event){
@@ -90,7 +94,7 @@ $(`#${category.table}`).append(
         `<tr>
         <th>${category.name}</th>
         <td contenteditable="true" class="changeable amount" data-column="amount">0</td>
-        <td><button id="pay-it">Pay It</button><td>
+        <td class="button"><button id="pay-it">Pay It</button></td>
         </tr>`)
 }
         // <td contenteditable="true" class="changeable goal" data-column="goal">${category.goal}</td>
