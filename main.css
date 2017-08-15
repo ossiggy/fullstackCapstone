@@ -1,26 +1,85 @@
 * {
   box-sizing: border-box;
+  margin:0;
 }
 
 body {
-  font-family: 'Hind', sans-serif;
-  background-color: #afafaf;
+   font-family: 'Hind', sans-serif;  
+  /* background-color: black; */
+  color: white;
+  background-image: url(assets/mathematics.jpg);
+  background-repeat: no-repeat;
+	background-size: cover;
+  background-position: 50% 25%;
+  background-attachment: fixed;
+
 }
 
   .heading {
-  background-color: #0f17fc;
+   /* background-image: url(assets/mathematics.jpg);
+  background-repeat: no-repeat;
+	background-size: cover;
+  background-position: 50% 25%;  */
+  background-color: black;
+  overflow: hidden;
   position:fixed;
   top:0;
   left:0;
   width:100%;
   z-index:100;
   color: white;
+  text-shadow: 0 0 15px #1c57ff;
   height: 150px;
+  text-align: center;
 }  
 
+a {
+  color: white;
+  text-shadow: 0 0 20px #1c57ff;
+}
+
+.heading h1 {
+  font-size: 60px;
+  margin-top: 25px;
+  font-family: 'Sedgwick Ave Display', cursive;
+}
+
+h2, h3, caption {
+  margin: 0;
+  text-shadow: 0 0 15px #1c57ff;
+}
+
 h2 {
+  font-family: 'Roboto Mono', monospace;
   clear: left;
   display: inline-block;
+}
+
+h3, caption {
+  font-family:'Sedgwick Ave', cursive;
+}
+
+.income-data {
+  width: 50%;
+  height:140px;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 5px;
+  box-shadow: 0 3px 8px 0 #1c57ff;
+  padding-top: 10px;
+  background-color: black;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+
+.table {
+  width: 50%;
+  margin: 0 auto;
 }
 
 main {
@@ -31,6 +90,7 @@ th, td {
   border: 1px solid black;
   border-radius: 5px;
   background-color: white;
+  color: black;
 }
 
 input {
