@@ -1,89 +1,49 @@
 $(document).ready(loadState)
-
-$('body').on('focus', '[contenteditable]', function() {
-    var $this = $(this);
-    $this.data('before', $this.html());
-    return $this;
-}).on('blur keyup paste input', '[contenteditable]', function() {
-    var $this = $(this);
-    if ($this.data('before') !== $this.html()) {
-        $this.data('before', $this.html());
-        $this.trigger('change');
-    }
-    if($this.hasClass('amount')){
-      doBalance($this);
-      remainingFunds();
-    }
-    if($this.hasClass('income')){
-      remainingFunds();
-    }
-});
-
 $('#pay-day').on('click', payDay)
-$('#pay-it').on('click', payBill)
+$('.pay-it').on('click', payBill)
 $('form').on('submit', saveState);
+$('#submit').on('click', formSubmit)
+
 
 // extract value from user object
 // have a form compile data from our table to submit
 
-let STATE = {}
-let loadedState = {}
-
-function doBalance(amount){
-    var amountValue = Number(amount.html())
-    var balance = Number(amount.parent().children('td.balance').html())
-    // 0 will eventually be replaced by the user's saved balance state
-    balance=0+amountValue
-    amount.parent().children('td.balance').html(balance)
-}
-
-function remainingFunds(){
-  var income = Number($("#income").html())
-  var totalSpent = 0
-  $(".amount").each(function(){
-    var newNum = Number($(this).html())
-    totalSpent+=newNum
-  })
-  var remainingFunds = income - totalSpent
-  $("#remainingFunds").html(remainingFunds)
-}
+// let STATE = {}
+// let loadedState = {}
 
 function payBill(event){
-  $.getJSON('./seed-data.json', function(response){
-    console.log(response)
-  })
+  event.preventDefault()
+  console.log(event)
 }
 
 function payDay(event){
-  $.getJSON('./seed-data.json', function(response){
-    weeklyIncome = response.weeklyIncome
-    availableIncome = response.availableIncome
-    availableIncome += weeklyIncome
-    console.log(availableIncome)
-  })
+  event.preventDefault()
+  let income = Number($('#income').html())
+  let remainingFunds = Number($('#remainingFunds').html())
+  $('#remainingFunds').html(income+=remainingFunds)
 }
 
-// function saveState(event) {
-//   event.preventDefault()
-//   const savedState = Object.assign({}, newState, loadedState)
-//   alert("Information Saved!")
-// }
+function saveState(event) {
+  event.preventDefault()
+  const savedState = Object.assign({}, newState, loadedState)
+  alert("Information Saved!")
+}
 
 function loadState(event){
   // var url = "/budgets/:id"
   $.getJSON("./seed-data.json", function(response){
     storeLocally(response)
-    remainingFunds()
 	})
 }
 
 function storeLocally(state) {
-  loadedState = state
+  let loadedState = state
   render(loadedState)
 }
 
 function render(state){
-  $(".income").html(`${state.availableIncome}`)
+  $('.income').html(`${state.weeklyIncome}`)
+  $('#remainingFunds').html(`${state.availableIncome}`)
     for(var i=0; i<state.categories.length; i++){
       show(state.categories[i])
     }
@@ -92,34 +52,28 @@ function render(state){
 function show(category){
 $(`#${category.table}`).append(
         `<tr>
-        <th>${category.name}</th>
-        <td contenteditable="true" class="changeable amount" data-column="amount">0</td>
-        <td class="button"><button id="pay-it">Pay It</button></td>
+        <th id="${category.name}">${category.name}</th>
+        <td contenteditable="true" class="changeable amount" data-category="${category.name}" data-column="amount">${category.amount}</td>
+        <td><button type="button" class="pay-it">Pay It</button></td>
         </tr>`)
 }
-        // <td contenteditable="true" class="changeable goal" data-column="goal">${category.goal}</td>
-        // <td contenteditable="false" class="balance" data-column="balance">${category.balance}</td>
-
-// WHEN USER SAVES:
-
-// search for cells with `data-` attr
-// use the names of each `data-` attr to make obj key
-// use the text contents of those cells to get the value
-
-// $("button").on("click", formSubmit)
 
 const newState = {}
 
-function saveState(e){
+function saveState(event){
   event.preventDefault()
+
   var fields = $("td[contenteditable]")
   $.each(fields, function(i, field) {
-    const fieldName = field.dataset.column;
-    newState[fieldName] = field.textContent;
+    let fieldCategory = field.dataset.category.toCamelCase();
+    newState[fieldCategory] = field.textContent;
   })
   console.log(newState)
 }
 
+function formSubmit(event){
+  
+}
 // save categories as new state
 // compare new state to old state
 // compile into one state
