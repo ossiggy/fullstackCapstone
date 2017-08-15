@@ -4,50 +4,63 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Budge My Life</title>
-    <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto+Mono|Sedgwick+Ave" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet"> 
     <link href="main.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
     <header class="heading">
-      <h1>Budge My Life</h1>
+      <h1>↞Budge My Life↠</h1>
       <input type="text" placeholder="email">
       <input type="text" placeholder="password">
-      <button>Submit</button><br>
+      <button>Sign In</button>
       <a href='#'>Sign Up</a>
     </header>
     <main>
     <form>
-      <h3 class="monthly-income">Monthly Income:</h3>
-        <h2>$</h2><h2 contenteditable="true" class ="income" id="income">0</h2>
-      <table id="vertical-1">
-              <caption><strong>Expenses</strong></caption>
-              <tr>
-                  <th>Expense</th>
-                  <td><strong>Amount</strong></td>
-                  <td><strong>Goal</strong></td>
-                  <td><strong>Balance</strong></td>
-              </tr>
-          </table>
-          <table id="vertical-2">
-              <caption><strong>Savings</strong></caption>
-              <tr>
-                <th>Plan</th>
-                <td><strong>Amount</strong></td>
-                <td><strong>Goal</strong></td>
-                <td><strong>Balance</strong></td>
-              </tr>
-          </table>
-          <h3>Remaining Funds</h1>
-            <h2>$</h2><h2 id="remainingFunds">0</h2>
-          <h3>Bill Total Left</h3>
-            <h2>$</h2><h2 id="billsLeftToPay">0</h2>
-          <button id="submit">Submit</button>
-        </form>
+      <div class="income-data">
+        <h3 class="monthly-income">Weekly/Bi-Weekly/Monthly Income:</h3>
+          <h2>$</h2><h2 contenteditable="true" class ="income" id="income">0</h2>
+          <button id="pay-day">Pay Day</button>
+            <h3>Remaining Funds:</h3>
+              <h2>$</h2><h2 contenteditable="true" id="remainingFunds">0</h2>
+      </div>
+      <div class="container">
+        <div class="table">
+          <table id="vertical-1">
+                  <caption><strong>Expenses</strong></caption>
+                  <tr>
+                      <th>Expense</th>
+                      <td><strong>Amount</strong></td>
+                       <td><strong>Pay it?</strong></td>
+                  </tr>
+              </table>
+              <table id="vertical-2">
+                  <caption><strong>Savings</strong></caption>
+                  <tr>
+                    <th>Plan</th>
+                    <td><strong>Amount</strong></td>
+                     <td><strong>Pay it?</strong></td>
+                  </tr>
+              </table>
+              <button id="submit">Submit</button>
+        </div>
+      </div>
+      </form>
       </main>
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
+    <script>
+      String.prototype.toCamelCase = function() {
+    return this
+        .replace(/\s(.)/g, function($1) { return $1.toUpperCase(); })
+        .replace(/\s/g, '')
+        .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
+}
+    </script>
     <script src="app.js"></script>
   </body>
 </html>
