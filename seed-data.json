@@ -1,0 +1,42 @@
+{
+  "username": "ossiggy",
+  "availableIncome": 10000,
+  "weeklyIncome": 1500,
+  "categories": [
+    {
+      "table":"vertical-1",
+      "name":"Rent",
+      "amount":1200
+    },
+    {
+      "table":"vertical-1",
+      "name":"Food",
+      "amount":350
+    },
+    {
+      "table":"vertical-1",
+      "name":"Credit Cards",
+      "amount":500
+    },
+    {
+      "table":"vertical-1",
+      "name":"Student Loans",
+      "amount":800
+    },
+    {
+      "table":"vertical-2",
+      "name":"Future Plans",
+      "amount":100
+    },
+    {
+      "table":"vertical-2",
+      "name":"Investments",
+      "amount":100
+    },
+    {
+      "table":"vertical-2",
+      "name":"Vacation",
+      "amount":100
+    }
+  ] 
+}
