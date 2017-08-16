@@ -26,7 +26,7 @@ app.get('/budgets/:id', (req, res) => {
 
 app.post('/budgets', (req, res) => {
 
-  const requiredFields = ['username', 'availableIncome', 'type', 'categories']
+  const requiredFields = ['username', 'availableIncome', 'weeklyIncome', 'categories']
   for(let i=0; i<requiredFields.length; i++){
     const field = requiredFields[i]
     if(!(field in req.body)){
@@ -37,6 +37,7 @@ app.post('/budgets', (req, res) => {
   Budget
     .create({
       username: req.body.username,
+      weeklyIncome: req.body.weeklyIncome,
       availableIncome: req.body.availableIncome,
       type: req.body.type,
       categories: req.body.categories
@@ -58,7 +59,7 @@ app.put('budgets/:id', (req, res) => {
   }
 
   const toUpdate = {}
-  const updateableFields = ['categories.name', 'categories.goal', 'categories.amount', 'categories.balance']
+  const updateableFields = ['availableIncome', 'weeklyIncome', 'categories.name', 'categories.amount']
 
   updateableFields.forEach(field => {
     if (field in req.body) {
