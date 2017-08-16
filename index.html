@@ -4,25 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Budge My Life</title>
-    <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto+Mono|Sedgwick+Ave" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave|Sedgwick+Ave+Display|Montserrat+Alternates" rel="stylesheet">
     <link href="main.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
     <header class="heading">
       <h1>↞Budge My Life↠</h1>
-      <input type="text" placeholder="email">
-      <input type="text" placeholder="password">
-      <button>Sign In</button>
-      <a href='#'>Sign Up</a>
+      <div id="sign-in">
+        <input type="text" placeholder="email">
+        <input type="text" placeholder="password">
+        <button type="button">Sign In</button>
+        <a href='#'>Sign Up</a>
+      </div>
     </header>
     <main>
     <form>
       <div class="income-data">
         <h3 class="monthly-income">Weekly/Bi-Weekly/Monthly Income:</h3>
           <h2>$</h2><h2 contenteditable="true" class ="income" id="income">0</h2>
-          <button id="pay-day">Pay Day</button>
+          <button type="button" id="pay-day">Pay Day</button>
             <h3>Remaining Funds:</h3>
               <h2>$</h2><h2 contenteditable="true" id="remainingFunds">0</h2>
       </div>
@@ -33,7 +33,7 @@
                   <tr>
                       <th>Expense</th>
                       <td><strong>Amount</strong></td>
-                       <td><strong>Pay it?</strong></td>
+                       <td><strong>Paid?</strong></td>
                   </tr>
               </table>
               <table id="vertical-2">
@@ -41,10 +41,10 @@
                   <tr>
                     <th>Plan</th>
                     <td><strong>Amount</strong></td>
-                     <td><strong>Pay it?</strong></td>
+                     <td><strong>Paid?</strong></td>
                   </tr>
               </table>
-              <button id="submit">Submit</button>
+              <button id="submit" type="submit">Submit</button>
         </div>
       </div>
       </form>
