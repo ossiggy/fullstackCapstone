@@ -1,19 +1,24 @@
 $(document).ready(loadState)
 $('#pay-day').on('click', payDay)
-$('.pay-it').on('click', payBill)
+$('form').on('click','.pay-it', payBill)
 $('form').on('submit', saveState);
-$('#submit').on('click', formSubmit)
+
+// $('#submit').on('click', formSubmit)
 
 
 // extract value from user object
 // have a form compile data from our table to submit
 
 // let STATE = {}
-// let loadedState = {}
+let newState = {}
+const loadedState = {}
 
 function payBill(event){
   event.preventDefault()
-  console.log(event)
+  let remainingFunds = Number($('#remainingFunds').html())
+  let amount = Number($(this).parent().siblings('td[data-column="amount"]').html())
+  remainingFunds -= amount
+  $('#remainingFunds').html(remainingFunds)
 }
 
 function payDay(event){
@@ -23,11 +28,11 @@ function payDay(event){
   $('#remainingFunds').html(income+=remainingFunds)
 }
 
-function saveState(event) {
-  event.preventDefault()
+function updateState() {
   const savedState = Object.assign({}, newState, loadedState)
-  alert("Information Saved!")
+  console.log(savedState)
 }
+
 
 function loadState(event){
   // var url = "/budgets/:id"
@@ -52,28 +57,45 @@ function render(state){
 function show(category){
 $(`#${category.table}`).append(
         `<tr>
-        <th id="${category.name}">${category.name}</th>
+        <th contenteditable="true" data-table="${category.table}" id="${category.name}">${category.name}</th>
         <td contenteditable="true" class="changeable amount" data-category="${category.name}" data-column="amount">${category.amount}</td>
-        <td><button type="button" class="pay-it">Pay It</button></td>
+        <td><button type="button" class="pay-it">Paid</button></td>
         </tr>`)
 }
 
-const newState = {}
-
 function saveState(event){
   event.preventDefault()
-
-  var fields = $("td[contenteditable]")
-  $.each(fields, function(i, field) {
-    let fieldCategory = field.dataset.category.toCamelCase();
-    newState[fieldCategory] = field.textContent;
+  income = $('.income').html()
+  remainingFunds = $('#remainingFunds').html()
+  newObj = {
+    weeklyIncome: income,
+    availableIncome: remainingFunds,
+    categories:[]
+  }
+  const categories = $("th[contenteditable]")
+  $.each(categories, function(i, category){
+    let newCategory = category.textContent.toCamelCase()
+    newObj[newCategory] = $(this).siblings('td[contenteditable]').html()
   })
-  console.log(newState)
+  newState = newObj
+  updateState()
 }
 
-function formSubmit(event){
+//create a new function that makes each category an object that has name, value, table
+//push those objects to the categories array
+
+// function saveState(){
+//   var fields = $("td[contenteditable]")
+//   $.each(fields, function(i, field) {
+//     let fieldCategory = field.dataset.category.toCamelCase();
+//     newState[fieldCategory] = field.textContent;
+//   })
+//   updateState()
+// }
+
+// function formSubmit(event){
   
-}
+// }
 // save categories as new state
 // compare new state to old state
 // compile into one state
