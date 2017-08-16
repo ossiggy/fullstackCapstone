@@ -4,7 +4,7 @@
 }
 
 body {
-   font-family: 'Hind', sans-serif;  
+   /* font-family: 'Hind', sans-serif;   */
   /* background-color: black; */
   color: white;
   background-image: url(assets/mathematics.jpg);
@@ -31,16 +31,27 @@ body {
   text-shadow: 0 0 15px #1c57ff;
   height: 150px;
   text-align: center;
-}  
+} 
+
+#sign-in {
+  text-align: right;
+  margin-right: 20px;
+}
+
+#sign-in button {
+  height:22px;
+  background-color:#1c57ff;
+  color: white;
+}
 
 a {
-  color: white;
-  text-shadow: 0 0 20px #1c57ff;
+  color: #1c57ff;
+  text-shadow: 0 0 0 20px white;
 }
 
 .heading h1 {
-  font-size: 60px;
-  margin-top: 25px;
+  font-size: 80px;
+  margin-top: 5px;
   font-family: 'Sedgwick Ave Display', cursive;
 }
 
@@ -50,7 +61,7 @@ h2, h3, caption {
 }
 
 h2 {
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Montserrat Alternates', sans-serif;
   clear: left;
   display: inline-block;
 }
