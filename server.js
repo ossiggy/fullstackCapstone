@@ -1,7 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose')
-const morgan = requre('morgan')
+const morgan = require('morgan')
+const cors = require('cors')
 
 const {DATABASE_URL, PORT} = require("./assets/config")
 const {Budget} = require("./assets/models")
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(cors())
 
 mongoose.Promise=global.Promise;
 
@@ -25,12 +27,13 @@ app.get('/budgets/:id', (req, res) => {
 })
 
 app.post('/budgets', (req, res) => {
-
+  console.log(req.body)
   const requiredFields = ['username', 'availableIncome', 'weeklyIncome', 'categories']
   for(let i=0; i<requiredFields.length; i++){
     const field = requiredFields[i]
     if(!(field in req.body)){
       const message = `Missing \`${field}\` in request body`
+      console.log(field)
       console.error(message)
     }
   }
