@@ -2,7 +2,6 @@ $(document).ready(loadState)
 $('#pay-day').on('click', payDay)
 $('form').on('click','.pay-it', payBill)
 $('form').on('submit', createState);
-// $('#submit').on('click', formSubmit)
 
 let newState = {}
 const loadedState = {}
@@ -62,13 +61,14 @@ function createState(event){
   const username = $('#username').html()
   const income = $('#income').html()
   const remainingFunds = $('#remainingFunds').html()
+  const budgets = $('tr.tableData')
   const newObj = {
     username: username,
     weeklyIncome: income,
     availableIncome: remainingFunds,
     categories:[]
   }
-  const budgets = $('tr.tableData')
+  
   $.each(budgets, function(i, budget){
     let newBudget = {
       table: $(this).closest('table').attr('id'),
@@ -77,18 +77,23 @@ function createState(event){
     }
   newObj.categories.push(newBudget)
   })
-  newState = newObj;
-  updateState()
+  updateState(newObj)
 }
 
-function updateState() {
-  const savedState = Object.assign({}, newState, loadedState)
+function updateState(object) {
+  const savedState = Object.assign({}, object, loadedState)
   console.log(savedState)
+  //post request make assumptions about the request (aka urlencoded responses) while 
+  //ajax requests will be custom made requests that you can design for you
+  $.ajax({
+    url: "http://localhost:8080/budgets",
+    type: "post",
+    contentType: "application/json",
+    data: JSON.stringify(savedState),
+    success: function(){console.log('success')}
+  })
 }
 
-// function formSubmit(event){
-  
-// }
 
 // save categories as new state
 // compare new state to old state
