@@ -117,3 +117,44 @@ button {
   border-radius: 5px;
   background-color: white;
 }
+
+.welcome {
+  text-align:left;
+  float:left;
+  margin-left: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+td{
+  height:100%;
+}
+
+.pay-it{
+  height:100%;
+  width:100%;
+}
+
+[contenteditable="true"] {
+    white-space: nowrap;
+    overflow: hidden;
+} 
+[contenteditable="true"] br {
+    display:none;
+
+}
+[contenteditable="true"] * {
+    display:inline;
+    white-space:nowrap;
+}
+
+#income #remainingFunds {
+  display:inline-block;
+  margin-right:10px
+}
+
+.income-div{
+  display:inline-block;
+}

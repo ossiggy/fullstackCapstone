@@ -11,7 +11,7 @@
     <header class="heading">
       <h1>↞Budge My Life↠</h1>
       <div id="sign-in">
-        <input type="text" placeholder="email">
+        <input type="text" placeholder="username">
         <input type="text" placeholder="password">
         <button type="button">Sign In</button>
         <a href='#'>Sign Up</a>
@@ -21,10 +21,14 @@
     <form>
       <div class="income-data">
         <h3 class="monthly-income">Weekly/Bi-Weekly/Monthly Income:</h3>
-          <h2>$</h2><h2 contenteditable="true" class ="income" id="income">0</h2>
+        <div id="income-div">
+          <h2 class="dollar">$</h2><h2 contenteditable="true" class ="income" id="income">0</h2>
           <button type="button" id="pay-day">Pay Day</button>
+        <div>
             <h3>Remaining Funds:</h3>
-              <h2>$</h2><h2 contenteditable="true" id="remainingFunds">0</h2>
+            <div class="income-div">
+              <h2 class="dollar">$</h2><h2 contenteditable="true" id="remainingFunds">0</h2>
+            </div>
       </div>
       <div class="container">
         <div class="table">
