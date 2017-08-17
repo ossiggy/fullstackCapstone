@@ -2,39 +2,10 @@ $(document).ready(loadState)
 $('#pay-day').on('click', payDay)
 $('form').on('click','.pay-it', payBill)
 $('form').on('submit', createState);
-
 // $('#submit').on('click', formSubmit)
 
-
-// extract value from user object
-// have a form compile data from our table to submit
-
-// let STATE = {}
 let newState = {}
 const loadedState = {}
-
-function payBill(event){
-  event.preventDefault()
-  let remainingFunds = Number($('#remainingFunds').html())
-  let amount = Number($(this).parent().siblings('td[data-column="amount"]').html())
-  remainingFunds -= amount
-  $('#remainingFunds').html(remainingFunds)
-  this.disabled = true;
-  // $(event.target).css({"background": "#1c57ff"})
-}
-
-function payDay(event){
-  event.preventDefault()
-  let income = Number($('#income').html())
-  let remainingFunds = Number($('#remainingFunds').html())
-  $('#remainingFunds').html(income+=remainingFunds)
-  this.disabled = true;
-}
-
-function updateState() {
-  const savedState = Object.assign({}, newState, loadedState)
-  console.log(savedState)
-}
 
 function loadState(event){
   // var url = "/budgets/:id"
@@ -69,6 +40,23 @@ $(`#${category.table}`).append(
         </tr>`)
 }
 
+function payBill(event){
+  event.preventDefault()
+  let remainingFunds = Number($('#remainingFunds').html())
+  let amount = Number($(this).parent().siblings('td[data-column="amount"]').html())
+  remainingFunds -= amount
+  $('#remainingFunds').html(remainingFunds)
+  this.disabled = true;
+}
+
+function payDay(event){
+  event.preventDefault()
+  let income = Number($('#income').html())
+  let remainingFunds = Number($('#remainingFunds').html())
+  $('#remainingFunds').html(income+=remainingFunds)
+  this.disabled = true;
+}
+
 function createState(event){
   event.preventDefault()
   const username = $('#username').html()
@@ -93,9 +81,15 @@ function createState(event){
   updateState()
 }
 
+function updateState() {
+  const savedState = Object.assign({}, newState, loadedState)
+  console.log(savedState)
+}
+
 // function formSubmit(event){
   
 // }
+
 // save categories as new state
 // compare new state to old state
 // compile into one state
@@ -105,14 +99,3 @@ function createState(event){
 // populate STATE with data
 // use STATE as source for rendering
 // rinse, repeat
-
-// - User loads page 
-// - Page uses jQuery to request budget data from your DB 
-// - jQuery takes the data it gets back and puts it in the state. 
-// We now have a state object that looks like the DB; a sort of local copy of the DB 
-// - User uses the app to make changes to their budget 
-// - jQuery saves these changes in the local state 
-// - When user is done (for now signified by them pressing a button manually) 
-// local state is used to update DB
-
-
