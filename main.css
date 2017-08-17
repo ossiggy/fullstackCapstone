@@ -5,9 +5,9 @@
 
 body {
    /* font-family: 'Hind', sans-serif;   */
-  /* background-color: black; */
-  color: white;
-  background-image: url(assets/mathematics.jpg);
+   background-color: white; 
+  color: black;
+  /* background-image: url(assets/mathematics.jpg); */
   background-repeat: no-repeat;
 	background-size: cover;
   background-position: 50% 25%;
@@ -16,7 +16,7 @@ body {
 }
 
   .heading {
-   /* background-image: url(assets/mathematics.jpg);
+  background-image: url(assets/mathematics.jpg); 
   background-repeat: no-repeat;
 	background-size: cover;
   background-position: 50% 25%;  */
@@ -72,7 +72,7 @@ h3, caption {
 
 .income-data {
   width: 50%;
-  height:140px;
+  height:143px;
   margin: 0 auto;
   text-align: center;
   border: 2px solid white;
@@ -80,6 +80,7 @@ h3, caption {
   box-shadow: 0 3px 8px 0 #1c57ff;
   padding-top: 10px;
   background-color: black;
+  color:white;
 }
 
 .container {
@@ -150,11 +151,17 @@ td{
     white-space:nowrap;
 }
 
-#income #remainingFunds {
-  display:inline-block;
-  margin-right:10px
+.dollar {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#income, #remainingFunds, #pay-day{
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .income-div{
-  display:inline-block;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
