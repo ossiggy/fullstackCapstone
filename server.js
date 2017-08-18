@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 const {DATABASE_URL, PORT} = require("./assets/config")
-const {Budget} = require("./assets/models")
+const {Budget, Category} = require("./models")
 
 const app = express();
 
@@ -27,7 +27,6 @@ app.get('/budgets/:id', (req, res) => {
 })
 
 app.post('/budgets', (req, res) => {
-  console.log(req.body)
   const requiredFields = ['username', 'availableIncome', 'weeklyIncome', 'categories']
   for(let i=0; i<requiredFields.length; i++){
     const field = requiredFields[i]
@@ -38,6 +37,11 @@ app.post('/budgets', (req, res) => {
     }
   }
   Budget
+  //I don’t see you taking the `req.body.categories` data and creating a `Category` out of it. 
+  //Just because you have told `Budget` that `categories` has an objectId association doesn’t mean it 
+  //automatically fills in the blanks and creates that for you.
+  //The first thing I have to do in this example is _find_ the campground, from there I can create a comment 
+  //and that comment will be associated with the specific campground.
     .create({
       username: req.body.username,
       weeklyIncome: req.body.weeklyIncome,
