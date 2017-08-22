@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 const {DATABASE_URL, PORT} = require("./assets/config")
-const {Budget} = require("./models")
+const {Budget, Category} = require("./models")
 
 const app = express();
 
@@ -18,11 +18,8 @@ mongoose.Promise=global.Promise;
 app.get('/budgets/:id', (req, res) => {
   Budget
     .findById(req.params.id)
-    .populate('_parent')
-    .exec(function(err, categories){
-      if(err) return "error";
-        console.log(categories)
-    })
+    .populate('categories')
+    .exec()
     .then(
      //populate by or either category or budget 
       budget => res.json(budget.apiRepr()))
@@ -44,18 +41,26 @@ app.post('/budgets', (req, res) => {
   }
   const {username, weeklyIncome, availableIncome, categories} = req.body
   
-  return Budget
-    .create({
+Budget
+  .create({
     username,
     weeklyIncome,
     availableIncome,
-    categories
+    categories: []
   })
     .then(
-      budget => {
-        res.sendStatus(201)
-        console.log('budget sent')
+      budget => {for(let i=0; i<categories.length; i++){
+        Category.create({
+          _parent: budget._id,
+          table: categories[i].table,
+          name: categories[i].name,
+          amount: categories[i].amount
+        })
+        .then(
+          category => budget.update({$push: {"categories": {_id:category._id}}}, {safe: true, upsert: true})
+        )
       }
+    budget => res.sendStatus(201)}
     ).catch(err => {
       console.error(err)
       res.status(500).json({message: 'Internal server error'})
