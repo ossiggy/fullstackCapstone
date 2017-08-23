@@ -19,7 +19,10 @@ app.get('/budgets/:id', (req, res) => {
   Budget
     .findById(req.params.id)
     .populate('categories')
-    .exec()
+    .exec(function(err, categories){
+      if(err) return "error";
+        console.log(categories)
+    })
     .then(
      //populate by or either category or budget 
       budget => res.json(budget.apiRepr()))
