@@ -4,8 +4,8 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const cors = require('cors')
 
-const {DATABASE_URL, PORT} = require("./assets/config")
-const {Budget, Category} = require("./models")
+const { DATABASE_URL, PORT } = require("./assets/config")
+const { Budget, Category } = require("./models")
 
 const app = express();
 
@@ -13,36 +13,36 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(cors())
 
-mongoose.Promise=global.Promise;
+mongoose.Promise = global.Promise;
 
 app.get('/budgets/:id', (req, res) => {
   Budget
     .findById(req.params.id)
     .populate('categories')
-    .exec(function(err, categories){
-      if(err) return "error";
-        console.log(categories)
+    .exec(function (err, categories) {
+      if (err) return "error";
+      console.log(categories)
     })
     .then(
-     //populate by or either category or budget 
-      budget => res.json(budget.apiRepr()))
+    //populate by or either category or budget 
+    budget => res.json(budget.apiRepr()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'something went wrong'})
+      res.status(500).json({ error: 'something went wrong' })
     })
 })
 
 app.post('/budgets', (req, res) => {
   const requiredFields = ['username', 'availableIncome', 'weeklyIncome', 'categories']
-  for(let i=0; i<requiredFields.length; i++){
+  for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i]
-    if(!(field in req.body)){
+    if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`
       console.log(field)
       console.error(message)
     }
   }
-  const {username, weeklyIncome, availableIncome, categories} = req.body
+  const { username, weeklyIncome, availableIncome, categories } = req.body
 
   Budget
     .create({
@@ -52,31 +52,32 @@ app.post('/budgets', (req, res) => {
       categories: []
     })
     .then(
-      budget => {
-        for(let i=0; i<categories.length; i++){
+    budget => {
+      for (let i = 0; i < categories.length; i++) {
         Category.create({
           _parent: budget._id,
           table: categories[i].table,
           name: categories[i].name,
           amount: categories[i].amount
         })
-        .then(
-          category => budget.update({$push: {"categories": {_id:category._id}}}, {safe: true, upsert: true})
-        )}
+          .then(
+          category => budget.update({ $push: { "categories": { _id: category._id } } }, { safe: true, upsert: true })
+          )
+      }
     })
     .then(() => res.status(204).end())
     .catch(err => {
-        console.error(err)
-        res.status(500).json({message: 'Internal server error'})
-      })   
+      console.error(err)
+      res.status(500).json({ message: 'Internal server error' })
+    })
 })
 
 app.put('budgets/:id', (req, res) => {
-  if(!(req.params.id && req.body.id && req.params.id)){
+  if (!(req.params.id && req.body.id && req.params.id)) {
     const message = (
       `Request patch id (${req.params.id} and request body id (${req.body.id}) must match)`)
-      console.error(message)
-      res.status(400).json({message: message})
+    console.error(message)
+    res.status(400).json({ message: message })
   }
 
   const toUpdate = {}
@@ -89,10 +90,10 @@ app.put('budgets/:id', (req, res) => {
   })
 
   Budget
-    .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
     .exec()
     .then(post => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Internal server error'}))
+    .catch(err => res.status(500).json({ message: 'Internal server error' }))
 })
 
 app.delete('/budgets/:id', (req, res) => {
@@ -100,19 +101,19 @@ app.delete('/budgets/:id', (req, res) => {
     .findByIdAndRemove(req.params.id)
     .exec()
     .then(post => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Inernal server error'}))
+    .catch(err => res.status(500).json({ message: 'Inernal server error' }))
 })
 
-app.use('*', function(req, res){
-  res.status(404).json({message: 'Not found'})
+app.use('*', function (req, res) {
+  res.status(404).json({ message: 'Not found' })
 })
 
 let server
 
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+function runServer(databaseUrl = DATABASE_URL, port = PORT) {
 
   return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, err =>{
+    mongoose.connect(databaseUrl, err => {
       if (err) {
         return reject(err)
       }
@@ -120,10 +121,10 @@ function runServer(databaseUrl=DATABASE_URL, port=PORT) {
         console.log(`Your app is listening on port ${port}`)
         resolve()
       })
-      .on('error', err => {
-        mongoose.disconnect()
-        reject(err)
-      })
+        .on('error', err => {
+          mongoose.disconnect()
+          reject(err)
+        })
     })
   })
 }
@@ -133,7 +134,7 @@ function closeServer() {
     return new Promise((resolve, reject) => {
       console.log('Closing server')
       server.close(err => {
-        if(err) {
+        if (err) {
           return reject(err)
         }
         resolve()
@@ -142,8 +143,8 @@ function closeServer() {
   })
 }
 
-if(require.main === module){
+if (require.main === module) {
   runServer().catch(err => console.error(err))
 }
 
-module.exports = {app, runServer, closeServer}
+module.exports = { app, runServer, closeServer }
