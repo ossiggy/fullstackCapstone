@@ -43,16 +43,17 @@ app.post('/budgets', (req, res) => {
     }
   }
   const {username, weeklyIncome, availableIncome, categories} = req.body
-  
-Budget
-  .create({
-    username,
-    weeklyIncome,
-    availableIncome,
-    categories: []
-  })
+
+  Budget
+    .create({
+      username,
+      weeklyIncome,
+      availableIncome,
+      categories: []
+    })
     .then(
-      budget => {for(let i=0; i<categories.length; i++){
+      budget => {
+        for(let i=0; i<categories.length; i++){
         Category.create({
           _parent: budget._id,
           table: categories[i].table,
@@ -61,27 +62,14 @@ Budget
         })
         .then(
           category => budget.update({$push: {"categories": {_id:category._id}}}, {safe: true, upsert: true})
-        )
-      }
-    budget => res.sendStatus(201)}
-    ).catch(err => {
-      console.error(err)
-      res.status(500).json({message: 'Internal server error'})
+        )}
     })
-    
+    .then(() => res.status(204).end())
+    .catch(err => {
+        console.error(err)
+        res.status(500).json({message: 'Internal server error'})
+      })   
 })
-  // Budget
-  // //I don’t see you taking the `req.body.categories` data and creating a `Category` out of it. 
-  // //Just because you have told `Budget` that `categories` has an objectId association doesn’t mean it 
-  // //automatically fills in the blanks and creates that for you.
-  // //The first thing I have to do in this example is _find_ the campground, from there I can create a comment 
-  // //and that comment will be associated with the specific campground.
-  //   .create({
-  //     username,
-  //     weeklyIncome,
-  //     availableIncome,
-  //     categories
-  //   })
 
 app.put('budgets/:id', (req, res) => {
   if(!(req.params.id && req.body.id && req.params.id)){
