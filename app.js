@@ -2,8 +2,8 @@ $(document).ready(loadState)
 $('#pay-day').on('click', payDay)
 $('form').on('click','.pay-it', payBill)
 $('form').on('submit', createState);
+$('.add-row').on('click', addRow)
 
-let newState = {}
 const loadedState = {}
 
 function loadState(event){
@@ -53,11 +53,26 @@ function payDay(event){
   let income = Number($('#income').html())
   let remainingFunds = Number($('#remainingFunds').html())
   $('#remainingFunds').html(income+=remainingFunds)
+  console.log(this)
   this.disabled = true;
+}
+
+function addRow(event){
+  event.preventDefault();
+  let table = $(this).closest('table')
+  $this = ($(this).html())
+  table.append(
+      `<tr class="tableData">
+          <th contenteditable="true" class="changeable name" data-table="" id=""></th>
+          <td contenteditable="true" class="changeable amount" data-category="" data-column="amount"></td>
+          <td><button type="button" class="pay-it">Paid</button></td>
+        </tr>`
+  )
 }
 
 function createState(event){
   event.preventDefault()
+  const objIdArray = []
   const username = $('#username').html()
   const income = $('#income').html()
   const remainingFunds = $('#remainingFunds').html()
@@ -77,6 +92,11 @@ function createState(event){
     }
   newObj.categories.push(newBudget)
   })
+for(var i=0; i<newObj.categories.length; i++){
+  var categoryObject = newObj.categories[i]
+  objIdArray.push(categoryObject)
+}
+  newObj.categories = objIdArray
   updateState(newObj)
 }
 
@@ -89,18 +109,8 @@ function updateState(object) {
     url: "http://localhost:8080/budgets",
     type: "post",
     contentType: "application/json",
-    data: JSON.stringify(savedState),
-    success: function(){console.log('success')}
+    data: JSON.stringify(savedState)
   })
+  .then(function(){console.log('success')})
+  // alert('Budget updated!')
 }
-
-
-// save categories as new state
-// compare new state to old state
-// compile into one state
-// send new state to server
-// WHEN PAGE LOADS:
-// get budget data from server
-// populate STATE with data
-// use STATE as source for rendering
-// rinse, repeat
