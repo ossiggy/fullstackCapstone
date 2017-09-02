@@ -3,7 +3,7 @@ $('#pay-day').on('click', payDay)
 $('form').on('click','.pay-it', payBill)
 $('form').on('submit', createState);
 $('.add-row').on('click', addRow)
-
+$('.del-row').on('click', delRow)
 const loadedState = {}
 
 function loadState(event){
@@ -60,7 +60,6 @@ function payDay(event){
 function addRow(event){
   event.preventDefault();
   let table = $(this).closest('table')
-  $this = ($(this).html())
   table.append(
       `<tr class="tableData">
           <th contenteditable="true" class="changeable name" data-table="" id=""></th>
@@ -68,6 +67,12 @@ function addRow(event){
           <td><button type="button" class="pay-it">Paid</button></td>
         </tr>`
   )
+}
+
+function delRow(event){
+  event.preventDefault();
+  let table = $(this).closest('table')
+  table.children().children().last().remove()
 }
 
 function createState(event){
