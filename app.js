@@ -72,7 +72,7 @@ function addRow(event){
 function delRow(event){
   event.preventDefault();
   let table = $(this).closest('table')
-  table.children().children().last().remove()
+  table.children().children('.tableData').last().remove()
 }
 
 function createState(event){
