@@ -63,7 +63,6 @@ describe('Budge My Life', function(){
   })
 
   beforeEach(function(){
-    console.log(seedBudgetData())
     return seedBudgetData()
   })
 
@@ -75,7 +74,7 @@ describe('Budge My Life', function(){
     return closeServer()
   })
 
-  it.only('Should list specific budget on GET', function(){
+  it('Should list specific budget on GET', function(){
     //write get endpoint in server
     //return all budgets
     //search for one budget of that response
@@ -96,11 +95,13 @@ describe('Budge My Life', function(){
             category.should.include.keys(categoryKeys)
           })
         })
-        resBudget = res.body[0].id
-        return Budget.findById(resBudget)
+        resBudget = res.body[0]
+        return Budget.findById(resBudget.id).exec()
         })
-        .then(function(budget){
-          console.log(budget)
+        .then(budget => {
+          resBudget.username.should.equal(budget.username)
+          resBudget.availableIncome.should.equal(budget.availableIncome)
+          resBudget.weeklyIncome.should.equal(budget.weeklyIncome)
         })
       })
 
