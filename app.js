@@ -4,6 +4,7 @@ $('form').on('click','.pay-it', payBill)
 $('form').on('submit', createState);
 $('.add-row').on('click', addRow)
 $('.del-row').on('click', delRow)
+
 const loadedState = {}
 
 function loadState(event){
@@ -53,7 +54,6 @@ function payDay(event){
   let income = Number($('#income').html())
   let remainingFunds = Number($('#remainingFunds').html())
   $('#remainingFunds').html(income+=remainingFunds)
-  console.log(this)
   this.disabled = true;
 }
 
