@@ -4,8 +4,10 @@ $('form').on('click','.pay-it', payBill)
 $('form').on('submit', createState);
 $('.add-row').on('click', addRow)
 $('.del-row').on('click', delRow)
+$('form').on('click','.undo', undo)
+$('#un-pay').on('click', unPay)
 
-const loadedState = {}
+let loadedState = {}
 
 function loadState(event){
   // var url = "/budgets/:id"
@@ -15,7 +17,7 @@ function loadState(event){
 }
 
 function storeLocally(state) {
-  let loadedState = state
+  loadedState = state
   render(loadedState)
 }
 
@@ -25,7 +27,7 @@ function render(state){
       <div id='username' class='hidden'>${state.username}</div>`
   )
   $('#income').html(`${state.weeklyIncome}`)
-  $('#remainingFunds').html(`${state.availableIncome}`)
+  $('#remaining-funds').html(`${state.availableIncome}`)
     for(var i=0; i<state.categories.length; i++){
       show(state.categories[i])
     }
@@ -37,24 +39,58 @@ $(`#${category.table}`).append(
           <th contenteditable="true" class="changeable name" data-table="${category.table}" id="${category.name}">${category.name}</th>
           <td contenteditable="true" class="changeable amount" data-category="${category.name}" data-column="amount">${category.amount}</td>
           <td><button type="button" class="pay-it">Paid</button></td>
+          <td><button type="button" class="undo">Undo</button></td>
         </tr>`)
 }
 
 function payBill(event){
   event.preventDefault()
-  let remainingFunds = Number($('#remainingFunds').html())
+  let remainingFunds = Number($('#remaining-funds').html())
   let amount = Number($(this).parent().siblings('td[data-column="amount"]').html())
   remainingFunds -= amount
-  $('#remainingFunds').html(remainingFunds)
-  this.disabled = true;
+  $('#remaining-funds').html(remainingFunds)
+  billsPaid = Number($('#bills-paid').html())
+  billsPaid += amount
+  $('#bills-paid').html(billsPaid)
+  this.disabled = true
+}
+
+function undo(event){
+  event.preventDefault()
+  this.parentNode.parentNode.childNodes[5].childNodes[0].disabled = false
+  let remainingFunds = Number($('#remaining-funds').html())
+  let amount = Number($(this).parent().siblings('td[data-column="amount"]').html())
+  let actualRemaining = remainingFunds - loadedState.availableIncome
+  remainingFunds += amount
+  $('#remaining-funds').html(remainingFunds)
+  if(remainingFunds>=loadedState.availableIncome){
+    $('#remaining-funds').html(loadedState.availableIncome)
+  }
+  billsPaid = Number($('#bills-paid').html())
+  billsPaid -= amount
+  $('#bills-paid').html(billsPaid)
+  if(billsPaid<actualRemaining){ 
+    $('#bills-paid').html(actualRemaining)
+  }
 }
 
 function payDay(event){
   event.preventDefault()
   let income = Number($('#income').html())
-  let remainingFunds = Number($('#remainingFunds').html())
-  $('#remainingFunds').html(income+=remainingFunds)
-  this.disabled = true;
+  let remainingFunds = Number($('#remaining-funds').html())
+  $('#remaining-funds').html(income+=remainingFunds)
+  this.disabled = true
+}
+
+function unPay(event) {
+  event.preventDefault()
+  let income = Number($('#income').html())
+  let remainingFunds = Number($('#remaining-funds').html())
+  $('#remaining-funds').html(income=remainingFunds-income)
+  if(remainingFunds<=loadedState.availableIncome){
+    $('#remaining-funds').html(loadedState.availableIncome)
+  }
+  this.parentNode.childNodes[4].disabled = false
 }
 
 function addRow(event){
@@ -65,6 +101,7 @@ function addRow(event){
           <th contenteditable="true" class="changeable name" data-table="" id=""></th>
           <td contenteditable="true" class="changeable amount" data-category="" data-column="amount"></td>
           <td><button type="button" class="pay-it">Paid</button></td>
+          <td><button type="button" class="undo">undo</button></td>
         </tr>`
   )
 }
@@ -80,7 +117,7 @@ function createState(event){
   const objIdArray = []
   const username = $('#username').html()
   const income = $('#income').html()
-  const remainingFunds = $('#remainingFunds').html()
+  const remainingFunds = $('#remaining-funds').html()
   const budgets = $('tr.tableData')
   const newObj = {
     username: username,
