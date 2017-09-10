@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <title>Budge My Life</title>
     <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave|Sedgwick+Ave+Display|Montserrat+Alternates" rel="stylesheet">
-    <link href="main.css" rel="stylesheet" type="text/css"/>
+    <link href="/main.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
     <header class="heading">
@@ -23,12 +23,17 @@
         <h3 class="monthly-income">Weekly/Bi-Weekly/Monthly Income:</h3>
         <div class="income-div">
           <h2 class="dollar">$</h2><h2 contenteditable="true" class ="income" id="income">0</h2>
-          <button type="button" id="pay-day">Pay Day</button>
+          <button type="button" id="pay-day">Pay Day</button><button type="button" id="un-pay">Undo</button>
         </div>
             <h3>Remaining Funds:</h3>
             <div class="income-div">
-              <h2 class="dollar">$</h2><h2 contenteditable="true" id="remainingFunds">0</h2>
+              <h2 class="dollar">$</h2><h2 contenteditable="true" id="remaining-funds">0</h2>
             </div>
+            <h3>Bills Paid:</h3>
+            <div class="income-div">
+              <h2 class="dollar">$</h2><h2 id="bills-paid">0</h2>
+            </div>
+            
       </div>
       <div class="container">
         <div class="table">
@@ -38,6 +43,9 @@
                       <th>Expense</th>
                       <td><strong>Amount</strong></td>
                        <td><strong>Paid?</strong></td>
+                       <td><strong>Wait...</strong></td>
+                       <td><button class='add-row'>+</button>
+                        <td><button class='del-row'>-</button></td>
                   </tr>
               </table>
               <table id="vertical-2">
@@ -46,6 +54,9 @@
                     <th>Plan</th>
                     <td><strong>Amount</strong></td>
                      <td><strong>Paid?</strong></td>
+                     <td><strong>Wait...</strong></td>
+                     <td><button class='add-row'>+</button></td>
+                     <td><button class='del-row'>-</button></td>
                   </tr>
               </table>
               <button id="submit" type="submit">Submit</button>
@@ -54,9 +65,8 @@
       </form>
       </main>
     <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+      src="jquery-3.2.1.min.js">
+    </script>
     <script>
       String.prototype.toCamelCase = function() {
     return this
@@ -65,6 +75,6 @@
         .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
 }
     </script>
-    <script src="app.js"></script>
+    <script src="/app.js"></script>
   </body>
 </html>
