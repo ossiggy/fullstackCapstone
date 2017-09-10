@@ -38,6 +38,10 @@ body {
   margin-right: 20px;
 }
 
+th.changeable.name {
+  font-weight: normal;
+}
+
 #sign-in button {
   height:22px;
   background-color:#1c57ff;
@@ -72,7 +76,7 @@ h3, caption {
 
 .income-data {
   width: 50%;
-  height:143px;
+  height:213px;
   margin: 0 auto;
   text-align: center;
   border: 2px solid white;
@@ -133,7 +137,7 @@ td{
   height:100%;
 }
 
-.pay-it{
+.pay-it .undo{
   height:100%;
   width:100%;
 }
@@ -156,7 +160,7 @@ td{
   vertical-align: middle;
 }
 
-#income, #remainingFunds, #pay-day{
+#income, #remaining-funds, #pay-day, #bills-paid {
   display: inline-block;
   vertical-align: middle;
 }
