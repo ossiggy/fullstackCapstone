@@ -47,11 +47,11 @@ function payBill(event){
   event.preventDefault()
   let remainingFunds = Number($('#remaining-funds').html())
   let amount = Number($(this).parent().siblings('td[data-column="amount"]').html())
-  remainingFunds -= amount
-  $('#remaining-funds').html(remainingFunds)
-  billsPaid = Number($('#bills-paid').html())
-  billsPaid += amount
-  $('#bills-paid').html(billsPaid)
+    remainingFunds -= amount
+    $('#remaining-funds').html(remainingFunds)
+    let billsPaid = Number($('#bills-paid').html())
+    billsPaid += amount
+    $('#bills-paid').html(billsPaid)
   this.disabled = true
 }
 
@@ -101,7 +101,7 @@ function addRow(event){
           <th contenteditable="true" class="changeable name" data-table="" id=""></th>
           <td contenteditable="true" class="changeable amount" data-category="" data-column="amount"></td>
           <td><button type="button" class="pay-it">Paid</button></td>
-          <td><button type="button" class="undo">undo</button></td>
+          <td><button type="button" class="undo">Undo</button></td>
         </tr>`
   )
 }
