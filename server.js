@@ -6,6 +6,9 @@ const morgan = require('morgan')
 const cors = require('cors')
 const budgetRouter = require('./budgets/budget-router')
 
+const {router: usersRouter} = require('./users')
+const {router: authRouter, basicStrategy, jwtStrategy} = require('./auth')
+
 const {DATABASE_URL, PORT} = require("./config")
 
 const app = express();
@@ -20,9 +23,27 @@ app.use(budgetRouter)
 
 mongoose.Promise=global.Promise;
 
+app.use(passport.initialize());
+passport.use(basicStrategy);
+passport.use(jwtStrategy);
+
+app.use('/api/users/', usersRouter);
+app.use('/api/auth', authRouter);
+
+
 app.get('/', (req, res) => {
   res.sendFile('index.html')
-})
+});
+
+app.get(
+  '/api/protected',
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+    return res.json({
+      data: 'data here'
+    });
+  }
+);
 
 app.get('/signup', (req, res) => {
   res.sendFile('signup.html', {root: __dirname + '/public'})
