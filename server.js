@@ -11,10 +11,17 @@ const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+
+app.use(express.static(__dirname + '/public'));
+
 app.use(cors())
 app.use(budgetRouter)
 
 mongoose.Promise=global.Promise;
+
+app.get('/', (req, res) => {
+  res.sendFile('index.html')
+})
 
 app.use('*', function(req, res){
   res.status(404).json({message: 'Not found'})
