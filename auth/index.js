@@ -1,4 +1,4 @@
-const {router} = require('./router')
+const {router} = require('./authRouter')
 const {basicStrategy, jwtStrategy} = require('./strategies');
 
 module.exports = {basicStrategy, jwtStrategy};

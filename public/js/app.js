@@ -156,3 +156,14 @@ function updateState(object) {
   .then(function(){console.log('success')})
   // alert('Budget updated!')
 }
+
+function logMeIn() {
+  $.ajax({
+    url: '', //server route for login,
+    type: post,
+    beforeSend: req => {
+      // we must add a header that jwt will use to authorize us
+      
+    }  
+  })
+}

@@ -41,7 +41,7 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
 const jwtStrategy = new JwtStrategy(
   {
     secretOrKey: JWT_SECRET,
-    jwtFormRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
     algorithms: ['HS256']
   },
   (payload, done) => {

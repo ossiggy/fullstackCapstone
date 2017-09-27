@@ -16,7 +16,7 @@ const UserSchema = mongoose.Schema({
   },
   firstName: {type: String, default: ''},
   lastName: {type: String, default: ''},
-  email: mongoose.SchemaType.Email
+  email: {type: mongoose.SchemaTypes.Email, required: true}
 });
 
 UserSchema.methods.apiRepr = function() {

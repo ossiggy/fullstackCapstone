@@ -110,4 +110,4 @@ router.delete('/budgets/:id', (req, res) => {
     .catch(err => res.status(500).json({message: 'Inernal server error'}))
 })
 
-module.exports = router;
+module.exports = {router};
