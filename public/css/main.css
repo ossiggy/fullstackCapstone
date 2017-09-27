@@ -7,7 +7,7 @@ body {
    /* font-family: 'Hind', sans-serif;   */
    background-color: white; 
   color: black;
-  /* background-image: url(assets/mathematics.jpg); */
+  /* background-image: url(../assets/mathematics.jpg); */
   background-repeat: no-repeat;
 	background-size: cover;
   background-position: 50% 25%;
@@ -16,7 +16,7 @@ body {
 }
 
   .heading {
-  background-image: url(assets/mathematics.jpg); 
+  background-image: url(../assets/mathematics.jpg); 
   background-repeat: no-repeat;
 	background-size: cover;
   background-position: 50% 25%;  */

@@ -1,48 +1,23 @@
-const bodyParser = require('body-parser');
 const express = require('express');
+const router = express.Router();
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const cors = require('cors')
+const app = express()
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
-const {DATABASE_URL, PORT} = require("./config")
-const {Budget, Category} = require("./models")
-
-const app = express();
-
-app.use(morgan('common'));
-app.use(bodyParser.json());
-app.use(cors())
+const {Budget, Category} = require('./models')
 
 mongoose.Promise=global.Promise;
-
-// app.get('/', (req, res) => {
-//   res.sendFile('./index.html')
-// })
-
-app.get('/budgets', (req, res) => {
-  Budget
-    .find()
-    .populate('categories')
-    .exec(function(err, categories){
-      if(err) return 'error';
-    })
-    .then(budgets => {
-      res.json(budgets.map(budget => budget.apiRepr()))
-    })
-    .catch(err => {
-      console.error(err)
-      res.status(500).json({error: "something went wrong"})
-    })
-})
 
 app.get('/budgets/:id', (req, res) => {
   Budget
     .findById(req.params.id)
     .populate('categories')
-    .exec(function(err, categories){
-      if(err) return "error";
-    })
+    .exec()
     .then(
+     //populate by or either category or budget 
       budget => res.json(budget.apiRepr()))
     .catch(err => {
       console.error(err);
@@ -61,7 +36,7 @@ app.post('/budgets', (req, res) => {
     }
   }
   const {username, weeklyIncome, availableIncome, categories} = req.body
-
+  
 Budget
   .create({
     username,
@@ -70,8 +45,7 @@ Budget
     categories: []
   })
     .then(
-      budget => {
-        for(let i=0; i<categories.length; i++){
+      budget => {for(let i=0; i<categories.length; i++){
         Category.create({
           _parent: budget._id,
           table: categories[i].table,
@@ -80,14 +54,27 @@ Budget
         })
         .then(
           category => budget.update({$push: {"categories": {_id:category._id}}}, {safe: true, upsert: true})
-        )}
+        )
+      }
+    budget => res.sendStatus(201)}
+    ).catch(err => {
+      console.error(err)
+      res.status(500).json({message: 'Internal server error'})
     })
-    .then(budget => res.status(204).end())
-    .catch(err => {
-        console.error(err)
-        res.status(500).json({message: 'Internal server error'})
-      })   
+    
 })
+  // Budget
+  // //I don’t see you taking the `req.body.categories` data and creating a `Category` out of it. 
+  // //Just because you have told `Budget` that `categories` has an objectId association doesn’t mean it 
+  // //automatically fills in the blanks and creates that for you.
+  // //The first thing I have to do in this example is _find_ the campground, from there I can create a comment 
+  // //and that comment will be associated with the specific campground.
+  //   .create({
+  //     username,
+  //     weeklyIncome,
+  //     availableIncome,
+  //     categories
+  //   })
 
 app.put('budgets/:id', (req, res) => {
   if(!(req.params.id && req.body.id && req.params.id)){
@@ -125,43 +112,4 @@ app.use('*', function(req, res){
   res.status(404).json({message: 'Not found'})
 })
 
-let server
-
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
-
-  return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, err =>{
-      if (err) {
-        return reject(err)
-      }
-      server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`)
-        resolve()
-      })
-      .on('error', err => {
-        mongoose.disconnect()
-        reject(err)
-      })
-    })
-  })
-}
-
-function closeServer() {
-  return mongoose.disconnect().then(() => {
-    return new Promise((resolve, reject) => {
-      console.log('Closing server')
-      server.close(err => {
-        if(err) {
-          return reject(err)
-        }
-        resolve()
-      })
-    })
-  })
-}
-
-if(require.main === module){
-  runServer().catch(err => console.error(err))
-}
-
-module.exports = {app, runServer, closeServer}
+module.exports = router;

@@ -11,7 +11,7 @@ let loadedState = {}
 
 function loadState(event){
   // var url = "/budgets/:id"
-  $.getJSON("./seed-data.json", function(response){
+  $.getJSON("../../seed-data.json", function(response){
     storeLocally(response)
 	})
 }
