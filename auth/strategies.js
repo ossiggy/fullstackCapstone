@@ -5,12 +5,12 @@ const {
   ExtractJwt
 } = require('passport-jwt');
 
-const {Budget} = require('../models.js');
-const {JWT_SECRET} = require('../assets/config.js');
+const {User} = require('../users/models');
+const {JWT_SECRET} = require('../config');
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
   let user;
-  Budget.findOne({username: username})
+  User.findOne({username: username})
     .then(_user => {
       user = _user;
       if(!user) {
