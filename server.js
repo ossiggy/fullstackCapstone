@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const cors = require('cors')
@@ -12,7 +13,7 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 
 app.use(cors())
 app.use(budgetRouter)
@@ -21,6 +22,10 @@ mongoose.Promise=global.Promise;
 
 app.get('/', (req, res) => {
   res.sendFile('index.html')
+})
+
+app.get('/signup', (req, res) => {
+  res.sendFile('signup.html', {root: __dirname + '/public'})
 })
 
 app.use('*', function(req, res){
