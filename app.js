@@ -144,14 +144,14 @@ for(var i=0; i<newObj.categories.length; i++){
 
 function updateState(object) {
   const savedState = Object.assign({}, object, loadedState)
-  console.log(savedState)
+  console.log(object)
   //post request make assumptions about the request (aka urlencoded responses) while 
   //ajax requests will be custom made requests that you can design for you
   $.ajax({
     url: "http://localhost:8080/budgets",
     type: "post",
     contentType: "application/json",
-    data: JSON.stringify(savedState)
+    data: JSON.stringify(object)
   })
   .then(function(){console.log('success')})
   // alert('Budget updated!')
