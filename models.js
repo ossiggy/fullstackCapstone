@@ -1,24 +1,19 @@
 const mongoose = require('mongoose')
 
-
 //parent budget
 const budgetSchema = mongoose.Schema({
    username: {type: String, required: true},
    availableIncome: {type: Number, required: true},
    weeklyIncome: {type: Number, required: true},
-   categories: {type: Array, required: true}
-  //  categories: [{type: mongoose.Schema.Types.ObjectId, ref:'Category'}]
+   categories: [{type: mongoose.Schema.Types.ObjectId, ref:'Category'}]
 });
 
-// const categorySchema = mongoose.Schema({
-//   _parent:{type: mongoose.Schema.Types.ObjectId, ref:'Budget'},
-//   table: {type:String, required: true},
-//   name: {type: String, required: true},
-//   amount: {type: Number, required: true},
-// })
-
-// one Budget has many BudgetCategories
-// one BudgetCategory has many Properties
+const categorySchema = mongoose.Schema({
+  _parent:{type: mongoose.Schema.Types.ObjectId, ref:'Budget'},
+  table: {type:String, required: true},
+  name: {type: String, required: true},
+  amount: {type: Number, required: true}
+})
 
 budgetSchema.methods.apiRepr = function(){
   return{
@@ -31,6 +26,6 @@ budgetSchema.methods.apiRepr = function(){
 }
 
 const Budget = mongoose.model('Budget', budgetSchema)
-// const Category = mongoose.model('Category', categorySchema)
+const Category = mongoose.model('Category', categorySchema)
 
-module.exports = {Budget}
+module.exports = {Budget, Category}

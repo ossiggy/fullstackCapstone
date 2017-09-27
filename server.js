@@ -18,7 +18,10 @@ mongoose.Promise=global.Promise;
 app.get('/budgets', (req, res) => {
   Budget
     .find()
-    .exec()
+    .populate('categories')
+    .exec(function(err, categories){
+      if(err) return 'error';
+    })
     .then(budgets => {
       res.json(budgets.map(budget => budget.apiRepr()))
     })
