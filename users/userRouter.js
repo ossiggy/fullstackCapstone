@@ -83,13 +83,13 @@ router.post('/newuser', jsonParser, (req, res) => {
     });
   }
 
-  let {username, password, email, firstName = '', lastname = ''} = req.body
+  let {username, password, email, firstName = '', lastName = ''} = req.body
   firstName = firstName.trim();
   lastName = lastName.trim();
 
   return User.find({username})
     .count()
-    .then(coiunt => {
+    .then(count => {
       if(count > 0) {
         return Promise.reject({
           code: 422,
@@ -98,7 +98,6 @@ router.post('/newuser', jsonParser, (req, res) => {
           location: 'username'
         });
       }
-
       return User.hashPassword(password)
     })
     .then(hash => {
@@ -106,13 +105,15 @@ router.post('/newuser', jsonParser, (req, res) => {
         username,
         password: hash,
         firstName,
-        lastName
+        lastName,
+        email
       });
     })
     .then(user => {
       return res.status(201).json(user.apiRepr())
     })
     .catch(err => {
+      console.log(err)
       if(err.reason === 'ValidationError'){
         return res.status(err.code).json(err)
       }
