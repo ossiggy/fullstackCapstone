@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 //parent budget
 const budgetSchema = mongoose.Schema({
-   username: {type: String, required: true},
+  _parent:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
    availableIncome: {type: Number, required: true},
    weeklyIncome: {type: Number, required: true},
    categories: [{type: mongoose.Schema.Types.ObjectId, ref:'Category'}]
@@ -18,7 +18,7 @@ const categorySchema = mongoose.Schema({
 budgetSchema.methods.apiRepr = function(){
   return{
     id: this._id,
-    username: this.username,
+    username: this._parent.username,
     availableIncome: this.availableIncome,
     weeklyIncome: this.weeklyIncome,
     categories: this.categories
