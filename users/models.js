@@ -17,10 +17,11 @@ const UserSchema = mongoose.Schema({
   firstName: {type: String, default: ''},
   lastName: {type: String, default: ''},
   email: {type: mongoose.SchemaTypes.Email, required: true}
-});
+
 
 UserSchema.methods.apiRepr = function() {
   return {
+    id: this._id,
     username: this.username || '',
     firstName: this.firstName || '',
     lastName: this.lastName || ''

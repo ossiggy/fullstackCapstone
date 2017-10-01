@@ -24,7 +24,9 @@ router.get('/budgets', (req, res) => {
     })
 })
 
-router.get('/budgets/:id', (req, res) => {
+// 
+
+router.get('/budgets/:userId', (req, res) => {
   Budget
     .findById(req.params.id)
     .populate('categories')
