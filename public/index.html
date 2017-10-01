@@ -12,11 +12,11 @@
       <h1>↞Budge My Life↠</h1>
       <div id="sign-in">
         <form id="login-form">
-          <input type="text" placeholder="username">
-          <input type="text" placeholder="password">
+          <input name="username" type="text" placeholder="username">
+          <input name="password" type="text" placeholder="password">
+          <button type="button" id="login-button">Sign In</button>
+          <a href='/signup'>Sign Up</a>
         </form>
-        <button type="button">Sign In</button>
-        <a href='/signup'>Sign Up</a>
       </div>
     </header>
     <main>
@@ -69,6 +69,7 @@
     <script
       src="js/jquery-3.2.1.min.js">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
     <script>
       String.prototype.toCamelCase = function() {
     return this
@@ -78,7 +79,7 @@
 }
     </script>
     <script src="js/app.js"></script>
-    <script src="js/login.js"></script>
+    <script src="../auth/login.js"></script>
 
   </body>
 </html>
