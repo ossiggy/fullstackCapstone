@@ -1,7 +1,7 @@
 $(document).ready(loadState)
 $('#pay-day').on('click', payDay)
-$('form').on('click','.pay-it', payBill)
-$('form').on('submit', createState);
+$('#budget-form').on('click','.pay-it', payBill)
+$('#budget-form').on('submit', createState);
 $('.add-row').on('click', addRow)
 $('.del-row').on('click', delRow)
 $('form').on('click','.undo', undo)

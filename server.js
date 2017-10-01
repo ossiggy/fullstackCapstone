@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const cors = require('cors')
 const passport = require('passport')
-const budgetRouter = require('./budgets/budget-router')
+const budgetRouter = require('./budgets/budgetRouter')
 require('dotenv').config();
 
 const {router: usersRouter} = require('./users')

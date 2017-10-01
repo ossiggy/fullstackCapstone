@@ -1,4 +1,4 @@
-$('#login-form').on(submit, function(event){
+$('#login-form').on('submit', function(event){
   event.preventDefault();
   const formData = {};
 
@@ -6,7 +6,6 @@ $('#login-form').on(submit, function(event){
     let {name, value} = this;
     formData[name] = value;
   });
-
   userLogin(formData)
 })
 
@@ -18,7 +17,7 @@ function userLogin(formData){
 
   function setHeader(req){
     const encodedString = btoa(`${username}:${password}`);
-    req.setRequestHeader('Authorization', 'Basic' + encodedString);
+    req.setRequestHeader('Authorization', 'Basic ' + encodedString);
   }
 
   function handleSuccess(res){

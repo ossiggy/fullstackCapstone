@@ -5,9 +5,9 @@ const faker = require('faker')
 const mongoose = require('mongoose')
 
 const {app, runServer, closeServer} = require('../server')
-const {DATABASE_URL} = require('../assets/config')
-const {TEST_DATABASE_URL} = require('../assets/config')
-const {Budget, Category} = require('../models')
+const {DATABASE_URL} = require('../config')
+const {TEST_DATABASE_URL} = require('../config')
+const {Budget, Category} = require('../budgets/models')
 
 const testID = new ObjectID();
 
