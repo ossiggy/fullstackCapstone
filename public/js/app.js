@@ -159,12 +159,14 @@ function updateState(object) {
   // alert('Budget updated!')
 }
 
-function logMeIn() {
+function logMeIn(event) {
+  event.preventDefault();
   $.ajax({
-    url: '', //server route for login,
-    type: post,
+    url: '/api/auth/login', //server route for login,
+    type: 'post',
     beforeSend: req => {
       // we must add a header that jwt will use to authorize us
+      Cookies.get()
       
     }  
   })
