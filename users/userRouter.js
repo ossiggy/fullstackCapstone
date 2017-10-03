@@ -7,6 +7,27 @@ const router = express.Router();
 const jsonParser = bodyParser.json();
 
 const {User} = require('./models');
+const {Budget, Category} = require('./')
+
+router.get('/:id', (req, res) => {
+
+  const {userId, authToken} = req.cookies;
+
+  User
+    .findById(userId)
+    .populate({
+      path: 'budget',
+      model: 'Budget',
+      populate: {
+        path: 'categories',
+        model: 'Category'
+      }
+    })
+    .exec(function(err, doc){
+      res.send(doc)
+    })
+    .then(user => res.status(204).send('here'))
+})
 
 router.post('/newuser', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
