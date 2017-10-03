@@ -115,11 +115,13 @@ function delRow(event){
 function createState(event){
   event.preventDefault()
   const objIdArray = []
+  const parent = Cookies.get('userId')
   const username = $('#username').html()
   const income = $('#income').html()
   const remainingFunds = $('#remaining-funds').html()
   const budgets = $('tr.tableData')
   const newObj = {
+    _parent: parent,
     username: username,
     weeklyIncome: income,
     availableIncome: remainingFunds,

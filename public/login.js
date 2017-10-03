@@ -22,7 +22,11 @@ function userLogin(formData){
 
   function handleSuccess(res){
     Cookies.set('authToken', res.authToken);
-  }
+    Cookies.set('userId', res.id);
+
+    $.get('api/users/'+res.id)
+      .then(res => console.log(res))
+    }
 
   const infoSettings = {
     url: loginURL,
