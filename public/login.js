@@ -25,7 +25,10 @@ function userLogin(formData){
     Cookies.set('userId', res.id);
 
     $.get('api/users/'+res.id)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        Cookies.set('username', res.username)
+      })
     }
 
   const infoSettings = {
