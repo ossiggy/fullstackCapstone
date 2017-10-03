@@ -2,9 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const cookieParser = require('cookie-parser');
 
 const router = express.Router();
 const {Budget, Category} = require('./models')
+const {User} = require('../users')
+
+router.use(cookieParser())
 
 mongoose.Promise=global.Promise;
 
@@ -26,7 +30,7 @@ router.get('/budgets', (req, res) => {
 
 // 
 
-router.get('/budgets/:userId', (req, res) => {
+router.get('/budgets/:id', (req, res) => {
   Budget
     .findById(req.params.id)
     .populate('categories')
@@ -42,7 +46,8 @@ router.get('/budgets/:userId', (req, res) => {
 })
 
 router.post('/budgets', (req, res) => {
-  const requiredFields = ['username', 'availableIncome', 'weeklyIncome', 'categories']
+  console.log(res.cookie.id)
+  const requiredFields = ['availableIncome', 'weeklyIncome', 'categories']
   for(let i=0; i<requiredFields.length; i++){
     const field = requiredFields[i]
     if(!(field in req.body)){
@@ -51,11 +56,11 @@ router.post('/budgets', (req, res) => {
       console.error(message)
     }
   }
-  const {username, weeklyIncome, availableIncome, categories} = req.body
+  const {weeklyIncome, availableIncome, categories} = req.body
 
 Budget
   .create({
-    username,
+    _parent: req.cookies.userID,
     weeklyIncome,
     availableIncome,
     categories: []
