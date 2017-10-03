@@ -116,7 +116,7 @@ function createState(event){
   event.preventDefault()
   const objIdArray = []
   const parent = Cookies.get('userId')
-  const username = $('#username').html()
+  const username = Cookies.get('username')
   const income = $('#income').html()
   const remainingFunds = $('#remaining-funds').html()
   const budgets = $('tr.tableData')
