@@ -46,7 +46,6 @@ router.get('/budgets/:id', (req, res) => {
 })
 
 router.post('/budgets', (req, res) => {
-  console.log(res.cookie.id)
   const requiredFields = ['availableIncome', 'weeklyIncome', 'categories']
   for(let i=0; i<requiredFields.length; i++){
     const field = requiredFields[i]
