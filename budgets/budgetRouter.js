@@ -30,20 +30,35 @@ router.get('/budgets', (req, res) => {
 
 // 
 
-router.get('/budgets/:id', (req, res) => {
-  Budget
-    .findById(req.params.id)
-    .populate('categories')
-    .exec(function(err, categories){
-      if(err) return "error";
-    })
-    .then(
-      budget => res.json(budget.apiRepr()))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({error: 'something went wrong'})
-    })
-})
+// router.get('/budgets/:id', (req, res) => {
+//   Budget
+//     .findById(req.params.id)
+//     .populate('categories')
+//     .exec(function(err, categories){
+//       if(err) return "error";
+//     })
+//     .then(
+//       budget => res.json(budget.apiRepr()))
+//     .catch(err => {
+//       console.error(err);
+//       res.status(500).json({error: 'something went wrong'})
+//     })
+// })
+
+router.get('/budgets/:userId', (req, res) => {
+  Budget.findOne({'_parent': req.params.userId})
+  .populate('categories')
+      .exec(function(err, categories){
+        if(err) return "error";
+        console.log(categories)
+      })
+      .then(
+        budget => res.json(budget.apiRepr()))
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'something went wrong'})
+      })
+  })
 
 router.post('/budgets', (req, res) => {
   const requiredFields = ['availableIncome', 'weeklyIncome', 'categories']
@@ -59,7 +74,7 @@ router.post('/budgets', (req, res) => {
 
 Budget
   .create({
-    _parent: req.cookies.userID,
+    _parent: req.cookies.userId,
     weeklyIncome,
     availableIncome,
     categories: []
@@ -77,6 +92,9 @@ Budget
           category => budget.update({$push: {"categories": {_id:category._id}}}, {safe: true, upsert: true})
         )}
     })
+    .then(
+
+    )
     .then(budget => res.status(204).end())
     .catch(err => {
         console.error(err)
