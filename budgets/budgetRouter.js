@@ -91,7 +91,7 @@ router.put('budgets/:id', (req, res) => {
   }
 
   const toUpdate = {}
-  const updateableFields = ['availableIncome', 'weeklyIncome', 'categories.name', 'categories.amount']
+  const updateableFields = ['availableIncome', 'weeklyIncome', 'categories.name', 'categories.amount', 'categories']
 
   updateableFields.forEach(field => {
     if (field in req.body) {
@@ -100,7 +100,7 @@ router.put('budgets/:id', (req, res) => {
   })
 
   Budget
-    .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+    .findOneAndUpdate({_parent:req.params.userId}, {$set: toUpdate}, {new: true})
     .exec()
     .then(post => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal server error'}))
