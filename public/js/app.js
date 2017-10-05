@@ -10,8 +10,9 @@ $('#un-pay').on('click', unPay)
 let loadedState = {}
 
 function loadState(event){
-  // var url = "/budgets/:id"
-  $.getJSON("../../seed-data.json", function(response){
+  const ID = Cookies.get('userId')
+  var url = "/budgets/" + ID
+  $.getJSON(url, function(response){
     storeLocally(response)
 	})
 }
