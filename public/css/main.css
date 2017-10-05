@@ -38,6 +38,10 @@ body {
   margin-right: 20px;
 }
 
+#login-form, .welcome{
+  display: inline-block;
+}
+
 th.changeable.name {
   font-weight: normal;
 }
@@ -168,4 +172,10 @@ td{
 .income-div{
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+#sign-up-div {
+  width:100%;
+  padding-top: 200px;
+  padding-left: 47%;
 }

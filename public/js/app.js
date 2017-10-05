@@ -23,9 +23,9 @@ function storeLocally(state) {
 }
 
 function render(state){
+  const username = Cookies.get('username')
   $('#sign-in').append(
-    `<h3 class='welcome'>welcome ${state.username}</h3>
-      <div id='username' class='hidden'>${state.username}</div>`
+    `<h3 class='welcome'>welcome ${username}</h3>`
   )
   $('#income').html(`${state.weeklyIncome}`)
   $('#remaining-funds').html(`${state.availableIncome}`)
@@ -157,7 +157,6 @@ function updateState(object) {
     data: JSON.stringify(object)
   })
   .then(function(){console.log('success')})
-  // alert('Budget updated!')
 }
 
 function logMeIn(event) {

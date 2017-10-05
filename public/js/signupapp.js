@@ -3,7 +3,37 @@ $('#sign-up-submit').on('submit', createUser);
 function createUser(event){
   event.preventDefault();
   const username = $('input[name="username"]').val();
-  console.log(username)
-}
+  const password = $('input[name="password"]').val();
+  const firstName = $('input[name="first-name"]').val();
+  const lastName = $('input[name="last-name"]').val();
+  const email = $('input[name="email"]').val();
 
-console.log('here')
+  const userObject = {
+    username: username,
+    password: password,
+    firstName: firstName,
+    lastName: lastName,
+    email: email
+  }
+
+  const infoSettings = {
+    url: 'http://localhost:8080/api/users/newuser',
+    type: 'post',
+    contentType: 'application/json',
+    data: JSON.stringify(userObject),
+    success: handleSuccess,
+    error: function(err){
+      console.log(err)
+    }
+  };
+
+  function handleSuccess(success){
+    $('body').append(
+      `<a href='/'>Go Back and Fill Out My Budget!</a>`
+    )
+  }
+  console.log(userObject)
+
+  $.ajax(infoSettings)
+  .then(function(){alert('User Created!')})
+}
