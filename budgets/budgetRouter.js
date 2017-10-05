@@ -28,23 +28,6 @@ router.get('/budgets', (req, res) => {
     })
 })
 
-// 
-
-// router.get('/budgets/:id', (req, res) => {
-//   Budget
-//     .findById(req.params.id)
-//     .populate('categories')
-//     .exec(function(err, categories){
-//       if(err) return "error";
-//     })
-//     .then(
-//       budget => res.json(budget.apiRepr()))
-//     .catch(err => {
-//       console.error(err);
-//       res.status(500).json({error: 'something went wrong'})
-//     })
-// })
-
 router.get('/budgets/:userId', (req, res) => {
   Budget.findOne({'_parent': req.params.userId})
   .populate('categories')
