@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/newuser', jsonParser, (req, res) => {
-  const requiredFields = ['username', 'password', 'email'];
+  const requiredFields = ['username', 'password', 'email', 'firstName', 'lastName'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if(missingField) {
@@ -76,7 +76,7 @@ router.post('/newuser', jsonParser, (req, res) => {
       max: 15
     },
     password: {
-      min: 10,
+      min: 4,
       max: 72
     }
   };
