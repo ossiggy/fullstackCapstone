@@ -18,7 +18,7 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -40,7 +40,6 @@ passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth', authRouter);
-
 
 app.get('/', (req, res) => {
   res.sendFile('index.html')
