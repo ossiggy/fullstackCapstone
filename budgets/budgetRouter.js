@@ -75,9 +75,6 @@ Budget
           category => budget.update({$push: {"categories": {_id:category._id}}}, {safe: true, upsert: true})
         )}
     })
-    .then(
-
-    )
     .then(budget => res.status(204).end())
     .catch(err => {
         console.error(err)
