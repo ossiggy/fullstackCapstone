@@ -1,4 +1,4 @@
-$(document).ready(loadState)
+$('#login-form').on('submit', loadState)
 $('#pay-day').on('click', payDay)
 $('#budget-form').on('click','.pay-it', payBill)
 $('#budget-form').on('submit', createState);
