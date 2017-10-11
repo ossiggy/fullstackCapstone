@@ -1,19 +1,18 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { ObjectID } = require('mongodb');
 const faker = require('faker');
 const mongoose = require('mongoose');
+const { ObjectID } = require('mongodb');
 
 const { app, runServer, closeServer } = require('../server');
-const { DATABASE_URL } = require('../config');
 const { TEST_DATABASE_URL } = require('../config');
 const { Budget, Category } = require('../budgets/models');
 
-const testID = new ObjectID();
 
-mongoose.Promise = global.Promise;
 
 const should = chai.should();
+
+mongoose.Promise = global.Promise;
 
 chai.use(chaiHttp);
 
@@ -29,8 +28,9 @@ function tearDownDb() {
 
 function seedBudgetData() {
   console.info('seeding budget data');
+  const testID = new ObjectID();
   const seedData = {
-    _parent: 123456,
+    _parent: testID,
     availableIncome: faker.random.number(),
     weeklyIncome: faker.random.number(),
     categories: []
@@ -58,7 +58,7 @@ function seedBudgetData() {
 
 describe('Budge My Life', function() {
   before(function() {
-    return runServer();
+    return runServer(TEST_DATABASE_URL);
   });
 
   beforeEach(function() {
@@ -114,7 +114,7 @@ describe('Budge My Life', function() {
 
   it('Should add budgets on POST', function() {
     const newBudget = {
-      _parent: 123456,
+      _parent: new ObjectID,
       availableIncome: 1250,
       weeklyIncome: 1500,
       categories: [{ table: 'vertical-1', name: 'dogs', amount: 130 }]
