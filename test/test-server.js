@@ -36,9 +36,15 @@ function tearDownDb() {
 
 function seedBudgetData() {
   console.info('seeding budget data');
+  
+  // Since _parent should reference a created doc,
+  // we follow that pattern here by using Object.assign() to flatten
+  // a new object with a mock _parent into the mock budget we made above
   return Budget.create(Object.assign(mockBudget, { _parent: new ObjectID() }))
     .then(budget => {
       return Category.create(
+        // ...This time we reference a real, created budget's _id 
+        // when flattening
         Object.assign(mockCategory, { _parent: budget._id })
       ).then(category =>
         budget.update(
