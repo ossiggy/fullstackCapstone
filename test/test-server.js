@@ -1,5 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const should = chai.should();
+
 const faker = require('faker');
 const mongoose = require('mongoose');
 const { ObjectID } = require('mongodb');
@@ -10,11 +12,20 @@ const { Budget, Category } = require('../budgets/models');
 
 
 
-const should = chai.should();
-
 mongoose.Promise = global.Promise;
 
 chai.use(chaiHttp);
+
+const mockBudget = {
+  availableIncome: faker.random.number(),
+  weeklyIncome: faker.random.number(),
+  categories: []
+};
+const mockCategory = {
+  amount: faker.random.number(),
+  name: faker.lorem.word(),
+  table: faker.lorem.word()
+};
 
 function tearDownDb() {
   return new Promise((resolve, reject) => {
@@ -28,25 +39,11 @@ function tearDownDb() {
 
 function seedBudgetData() {
   console.info('seeding budget data');
-  const testID = new ObjectID();
-  const seedData = {
-    _parent: testID,
-    availableIncome: faker.random.number(),
-    weeklyIncome: faker.random.number(),
-    categories: []
-    // according to our models, categories is looking for an array of reference id's, not objects
-    // we must create the category object seperately with a reference id to the parent and push the reference id
-    // to the categories array.  we need the category to acutally exist tho or else it will throw an error
-  };
-  const budget = seedData;
-  return Budget.create(budget)
+  return Budget.create(Object.assign(mockBudget, { _parent: new ObjectID() }))
     .then(budget => {
-      return Category.create({
-        _parent: budget._id,
-        amount: faker.random.number(),
-        name: faker.lorem.word(),
-        table: faker.lorem.word()
-      }).then(category =>
+      return Category.create(
+        Object.assign(mockCategory, { _parent: budget._id })
+      ).then(category =>
         budget.update(
           { $push: { categories: { _id: category._id } } },
           { safe: true, upsert: true, new: true }
@@ -81,8 +78,8 @@ describe('Budge My Life', function() {
     return chai
       .request(app)
       .get('/budgets')
-      .then(function(res) {
-        console.log(res.body);
+      .then(function(_res) {
+        res = _res;
         res.should.have.status(200);
         res.should.be.json;
         res.body.forEach(function(budget) {
@@ -102,19 +99,19 @@ describe('Budge My Life', function() {
             category.should.include.keys(categoryKeys);
           });
         });
-        resBudget = res.body[0];
+        let resBudget = res.body[0];
         return Budget.findById(resBudget.id).exec();
       })
       .then(budget => {
-        resBudget._parent.should.equal(budget._parent);
-        resBudget.availableIncome.should.equal(budget.availableIncome);
-        resBudget.weeklyIncome.should.equal(budget.weeklyIncome);
+        budget._parent.should.equal(budget._parent);
+        budget.availableIncome.should.equal(budget.availableIncome);
+        budget.weeklyIncome.should.equal(budget.weeklyIncome);
       });
   });
 
   it('Should add budgets on POST', function() {
     const newBudget = {
-      _parent: new ObjectID,
+      _parent: new ObjectID(),
       availableIncome: 1250,
       weeklyIncome: 1500,
       categories: [{ table: 'vertical-1', name: 'dogs', amount: 130 }]
