@@ -179,3 +179,8 @@ td{
   padding-top: 200px;
   padding-left: 47%;
 }
+
+#goBackLink {
+  width:100%;
+  padding-left:42%;
+}

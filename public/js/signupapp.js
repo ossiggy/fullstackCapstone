@@ -29,7 +29,7 @@ function createUser(event){
 
   function handleSuccess(success){
     $('body').append(
-      `<a href='/'>Go Back and Fill Out My Budget!</a>`
+      `<a id="goBackLink" href='/'>Go Back to Sign In and Fill Out My Budget!</a>`
     )
   }
   console.log(userObject)

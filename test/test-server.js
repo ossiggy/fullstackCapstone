@@ -31,7 +31,7 @@ let testId;
 function seedBudgetData() {
   console.info('seeding budget data')
     const seedData = {
-      username: faker.internet.userName(),
+      _parent: 123456,
       availableIncome: faker.random.number(),
       weeklyIncome: faker.random.number(),
       categories:[]
@@ -82,10 +82,11 @@ describe('Budge My Life', function(){
     return chai.request(app)
       .get('/budgets')
       .then(function(res){
+        console.log(res.body)
         res.should.have.status(200)
         res.should.be.json
         res.body.forEach(function(budget){
-          const expectedKeys = ['username', 'availableIncome', 'weeklyIncome', 'categories', 'id']
+          const expectedKeys = ['_parent', 'availableIncome', 'weeklyIncome', 'categories', 'id']
           budget.should.include.keys(expectedKeys)
           budget.categories.should.be.a('array')
           budget.categories.length.should.be.at.least(1)
@@ -99,14 +100,14 @@ describe('Budge My Life', function(){
         return Budget.findById(resBudget.id).exec()
         })
         .then(budget => {
-          resBudget.username.should.equal(budget.username)
+          resBudget._parent.should.equal(budget._parent)
           resBudget.availableIncome.should.equal(budget.availableIncome)
           resBudget.weeklyIncome.should.equal(budget.weeklyIncome)
         })
       })
 
   it('Should add budgets on POST', function(){
-    const newBudget = {username: 'ozzyMan', availableIncome: 1250, weeklyIncome: 1500, categories: [{table: "vertical-1", name: "dogs", amount: 130}]}
+    const newBudget = {_parent: 123456, availableIncome: 1250, weeklyIncome: 1500, categories: [{table: "vertical-1", name: "dogs", amount: 130}]}
     return chai.request(app)
       .post('/budgets')
       .send(newBudget)

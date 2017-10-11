@@ -13,6 +13,7 @@ function loadState(event){
   const ID = Cookies.get('userId')
   var url = "/budgets/" + ID
   $.getJSON(url, function(response){
+    console.log(response)
     storeLocally(response)
 	})
 }
@@ -24,14 +25,37 @@ function storeLocally(state) {
 
 function render(state){
   const username = Cookies.get('username')
-  $('#sign-in').append(
-    `<h3 class='welcome'>welcome ${username}</h3>`
-  )
-  $('#income').html(`${state.weeklyIncome}`)
-  $('#remaining-funds').html(`${state.availableIncome}`)
-    for(var i=0; i<state.categories.length; i++){
-      show(state.categories[i])
+  const signedInUser = $('.welcome').html()
+  const income = $('#income')
+  const availableIncome = $('#remaining-funds')
+  if(!signedInUser){
+    $('#sign-in').append(
+      `<h3 class='welcome'>${username}</h3>`
+    )
+  }
+    else{
+      $('#income').html(`${state.weeklyIncome}`)
+      $('#remaining-funds').html(`${state.availableIncome}`)
+        for(var i=0; i<state.categories.length; i++){
+          show(state.categories[i])
+        }
+      }
+
+  if(username!==signedInUser){
+    $('#sign-in').append(
+      `<h3 class='welcome'>${username}</h3>`
+    )
+    $('#income').html(`${state.weeklyIncome}`)
+    $('#remaining-funds').html(`${state.availableIncome}`)
+      for(var i=0; i<state.categories.length; i++){
+        if(!signedInUser){
+          show(state.categories[i])
+        }
+      }
     }
+  else{
+    console.log('same user!')
+  }
 }
 
 function show(category){
@@ -157,17 +181,4 @@ function updateState(object) {
     data: JSON.stringify(object)
   })
   .then(function(){console.log('success')})
-}
-
-function logMeIn(event) {
-  event.preventDefault();
-  $.ajax({
-    url: '/api/auth/login', //server route for login,
-    type: 'post',
-    beforeSend: req => {
-      // we must add a header that jwt will use to authorize us
-      Cookies.get()
-      
-    }  
-  })
 }

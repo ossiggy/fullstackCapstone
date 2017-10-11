@@ -29,7 +29,7 @@ router.post(
   '/refresh',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-    const authToken = cerateAuthToken(req.user);
+    const authToken = createAuthToken(req.user);
     res.json({authToken});
   }
 );
