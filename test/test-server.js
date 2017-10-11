@@ -1,6 +1,6 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-const {ObjectID} = require('mongodb')
+const { ObjectID } = require('mongodb')
 const faker = require('faker')
 const mongoose = require('mongoose')
 
@@ -17,6 +17,18 @@ const should = chai.should()
 
 chai.use(chaiHttp)
 
+const mockBudget = {
+  availableIncome: faker.random.number(),
+  weeklyIncome: faker.random.number(),
+  categories:[]
+}
+
+const mockCategory = {
+  amount: faker.random.number(),
+  name: faker.lorem.word(),
+  table: faker.lorem.word()
+}
+
 function tearDownDb() {
   return new Promise((resolve, reject) => {
     console.warn('Deleting database');
@@ -30,25 +42,12 @@ let testId;
 
 function seedBudgetData() {
   console.info('seeding budget data')
-    const seedData = {
-      _parent: 123456,
-      availableIncome: faker.random.number(),
-      weeklyIncome: faker.random.number(),
-      categories:[]
-      // according to our models, categories is looking for an array of reference id's, not objects
-      // we must create the category object seperately with a reference id to the parent and push the reference id
-      // to the categories array.  we need the category to acutally exist tho or else it will throw an error
-    }
-    const budget = seedData
-    return Budget.create(budget)
+    return Budget.create(Object.assign(mockBudget, { _parent: new ObjectID()}))
     .then(
       budget =>{
-        return Category.create({ 
-          _parent: budget._id,
-          amount: faker.random.number(),
-          name: faker.lorem.word(),
-          table: faker.lorem.word()
-        })
+        return Category.create(
+          Object.assign(mockCategory, { _parent: budget._id})
+        )
         .then(
           category => budget.update({$push: {'categories': {_id: category._id}}}, {safe: true, upsert: true, new: true})
         )
@@ -59,7 +58,7 @@ function seedBudgetData() {
 
 describe('Budge My Life', function(){
   before(function(){
-    return runServer()
+    return runServer(TEST_DATABASE_URL)
   })
 
   beforeEach(function(){
@@ -82,7 +81,6 @@ describe('Budge My Life', function(){
     return chai.request(app)
       .get('/budgets')
       .then(function(res){
-        console.log(res.body)
         res.should.have.status(200)
         res.should.be.json
         res.body.forEach(function(budget){
@@ -100,14 +98,14 @@ describe('Budge My Life', function(){
         return Budget.findById(resBudget.id).exec()
         })
         .then(budget => {
-          resBudget._parent.should.equal(budget._parent)
+          resBudget.id.should.equal(budget.id)
           resBudget.availableIncome.should.equal(budget.availableIncome)
           resBudget.weeklyIncome.should.equal(budget.weeklyIncome)
         })
       })
 
   it('Should add budgets on POST', function(){
-    const newBudget = {_parent: 123456, availableIncome: 1250, weeklyIncome: 1500, categories: [{table: "vertical-1", name: "dogs", amount: 130}]}
+    const newBudget = {_parent: new ObjectID, availableIncome: 1250, weeklyIncome: 1500, categories: [{table: "vertical-1", name: "dogs", amount: 130}]}
     return chai.request(app)
       .post('/budgets')
       .send(newBudget)
