@@ -18,7 +18,7 @@ const categorySchema = mongoose.Schema({
 budgetSchema.methods.apiRepr = function(){
   return{
     id: this._id,
-    parent: this._parent,
+    _parent: this._parent,
     availableIncome: this.availableIncome,
     weeklyIncome: this.weeklyIncome,
     categories: this.categories
