@@ -5,14 +5,11 @@ const should = chai.should();
 const faker = require('faker');
 const mongoose = require('mongoose');
 const { ObjectID } = require('mongodb');
+mongoose.Promise = global.Promise;
 
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
 const { Budget, Category } = require('../budgets/models');
-
-
-
-mongoose.Promise = global.Promise;
 
 chai.use(chaiHttp);
 
