@@ -30,7 +30,18 @@ router.get('/budgets', (req, res) => {
 
 router.get('/budgets/:userId', (req, res) => {
   if(!Budget){
-    res.send //make a sample budget here to send back? would it be a create even though it would just be a placeholder?
+    Budget.findOne({'_id': '59e693fb6e6da67b15996aa2'})
+    .populate('categories')
+    .exec(function(err, categories){
+      if(err) return "error";
+      console.log(categories)
+    })
+    .then(
+      budget => res.json(budget.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'something went wrong'})
+    })
   }
   else{
     Budget.findOne({'_parent': req.params.userId}, {}, {sort: {'_id':-1}})

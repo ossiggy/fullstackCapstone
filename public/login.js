@@ -30,6 +30,9 @@ function userLogin(formData){
         console.log(res)
         Cookies.set('username', res.username)
       })
+      $('#sign-in').append(
+        `<h3 class='welcome'>Welcome ${username}!</h3>`
+      )
     }
 
   const infoSettings = {
