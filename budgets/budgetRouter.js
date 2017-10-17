@@ -33,7 +33,7 @@ router.get('/budgets/:userId', (req, res) => {
     res.send //make a sample budget here to send back? would it be a create even though it would just be a placeholder?
   }
   else{
-    Budget.findOne({'_parent': req.params.userId})
+    Budget.findOne({'_parent': req.params.userId}, {}, {sort: {'_id':-1}})
     .populate('categories')
         .exec(function(err, categories){
           if(err) return "error";
