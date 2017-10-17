@@ -6,6 +6,7 @@ $('.add-row').on('click', addRow)
 $('.del-row').on('click', delRow)
 $('form').on('click','.undo', undo)
 $('#un-pay').on('click', unPay)
+$('#got-it').on('click', gotIt)
 
 let loadedState = {}
 
@@ -30,32 +31,25 @@ function render(state){
   const availableIncome = $('#remaining-funds')
   if(!signedInUser){
     $('#sign-in').append(
-      `<h3 class='welcome'>${username}</h3>`
+      `<h3 class='welcome'>Welcome ${username}!</h3>`
     )
+    $('#income').html(`${state.weeklyIncome}`)
+    $('#vertical-1').children().siblings().children('.tableData').remove()
+    $('#vertical-2').children().siblings().children('.tableData').remove()
+    $('#remaining-funds').html(`${state.availableIncome}`)
+      for(var i=0; i<state.categories.length; i++){
+        show(state.categories[i])
+      }
   }
     else{
       $('#income').html(`${state.weeklyIncome}`)
+      $('#vertical-1').empty()
+      $('#vertical-2').empty()
       $('#remaining-funds').html(`${state.availableIncome}`)
         for(var i=0; i<state.categories.length; i++){
           show(state.categories[i])
         }
       }
-
-  if(username!==signedInUser){
-    $('#sign-in').append(
-      `<h3 class='welcome'>${username}</h3>`
-    )
-    $('#income').html(`${state.weeklyIncome}`)
-    $('#remaining-funds').html(`${state.availableIncome}`)
-      for(var i=0; i<state.categories.length; i++){
-        if(!signedInUser){
-          show(state.categories[i])
-        }
-      }
-    }
-  else{
-    console.log('same user!')
-  }
 }
 
 function show(category){
@@ -64,7 +58,7 @@ $(`#${category.table}`).append(
           <th contenteditable="true" class="changeable name" data-table="${category.table}" id="${category.name}">${category.name}</th>
           <td contenteditable="true" class="changeable amount" data-category="${category.name}" data-column="amount">${category.amount}</td>
           <td><button type="button" class="pay-it">Paid</button></td>
-          <td><button type="button" class="undo">Undo</button></td>
+          <td><button type="button" class="undo" disabled>Undo</button></td>
         </tr>`)
 }
 
@@ -72,31 +66,30 @@ function payBill(event){
   event.preventDefault()
   let remainingFunds = Number($('#remaining-funds').html())
   let amount = Number($(this).parent().siblings('td[data-column="amount"]').html())
-    remainingFunds -= amount
-    $('#remaining-funds').html(remainingFunds)
-    let billsPaid = Number($('#bills-paid').html())
-    billsPaid += amount
-    $('#bills-paid').html(billsPaid)
+  remainingFunds -= amount
+  $('#remaining-funds').html(remainingFunds)
+  let billsPaid = Number($('#bills-paid').html())
+  billsPaid += amount
+  $('#bills-paid').html(billsPaid)
+  $(this).css('color', 'green')
   this.disabled = true
+  this.parentNode.parentNode.childNodes[7].childNodes[0].disabled = false
 }
 
 function undo(event){
   event.preventDefault()
-  this.parentNode.parentNode.childNodes[5].childNodes[0].disabled = false
+  const payButton = this.parentNode.parentNode.childNodes[5].childNodes[0]
+  this.disabled = true
+  payButton.disabled = false
   let remainingFunds = Number($('#remaining-funds').html())
   let amount = Number($(this).parent().siblings('td[data-column="amount"]').html())
   let actualRemaining = remainingFunds - loadedState.availableIncome
   remainingFunds += amount
   $('#remaining-funds').html(remainingFunds)
-  if(remainingFunds>=loadedState.availableIncome){
-    $('#remaining-funds').html(loadedState.availableIncome)
-  }
   billsPaid = Number($('#bills-paid').html())
   billsPaid -= amount
   $('#bills-paid').html(billsPaid)
-  if(billsPaid<actualRemaining){ 
-    $('#bills-paid').html(actualRemaining)
-  }
+  payButton.style.color = "white"
 }
 
 function payDay(event){
@@ -104,6 +97,7 @@ function payDay(event){
   let income = Number($('#income').html())
   let remainingFunds = Number($('#remaining-funds').html())
   $('#remaining-funds').html(income+=remainingFunds)
+
   this.disabled = true
 }
 
@@ -115,6 +109,7 @@ function unPay(event) {
   if(remainingFunds<=loadedState.availableIncome){
     $('#remaining-funds').html(loadedState.availableIncome)
   }
+  $('.pay-it').css('color', 'white')
   this.parentNode.childNodes[4].disabled = false
 }
 
@@ -169,6 +164,11 @@ for(var i=0; i<newObj.categories.length; i++){
   updateState(newObj)
 }
 
+function gotIt(event){
+  event.preventDefault()
+  $('.explainer').addClass('hidden')
+}
+
 function updateState(object) {
   const savedState = Object.assign({}, object, loadedState)
   console.log(object)
@@ -180,5 +180,8 @@ function updateState(object) {
     contentType: "application/json",
     data: JSON.stringify(object)
   })
-  .then(function(){console.log('success')})
+  .then(function(){
+    console.log('success')
+    alert('Budget Saved!')
+  })
 }

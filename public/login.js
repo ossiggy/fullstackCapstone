@@ -1,5 +1,6 @@
 $('#login-form').on('submit', function(event){
   event.preventDefault();
+  this.childNodes[5].disabled = true
   const formData = {};
 
   $('#login-form input').each(function(){
@@ -43,5 +44,7 @@ function userLogin(formData){
   };
 
   $.ajax(infoSettings);
+  $('#login-form').addClass('hidden')
+  $('.explainer').addClass('hidden')
 }
 

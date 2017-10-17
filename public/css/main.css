@@ -4,10 +4,8 @@
 }
 
 body {
-   /* font-family: 'Hind', sans-serif;   */
-   background-color: white; 
+  background-color: white; 
   color: black;
-  /* background-image: url(../assets/mathematics.jpg); */
   background-repeat: no-repeat;
 	background-size: cover;
   background-position: 50% 25%;
@@ -15,12 +13,11 @@ body {
 
 }
 
-  .heading {
-  background-image: url(../assets/mathematics.jpg); 
+  .heading { 
   background-repeat: no-repeat;
 	background-size: cover;
-  background-position: 50% 25%;  */
-  background-color: black;
+  background-position: 50% 25%;
+  background-color: gray;
   overflow: hidden;
   position:fixed;
   top:0;
@@ -29,16 +26,24 @@ body {
   z-index:100;
   color: white;
   text-shadow: 0 0 15px #1c57ff;
-  height: 150px;
-  text-align: center;
-} 
+  height: 100px;
+  text-align: left;
+  border-bottom: 5px solid #1c57ff;
+  border-left: 2px solid #1c57ff;
+  border-right: 2px solid #1c57ff;
+}
 
 #sign-in {
   text-align: right;
   margin-right: 20px;
+  display: inline-block;
+  padding-top: 50px;
+  width: 47%;
+  position: absolute;
+  clear: left;
 }
 
-#login-form, .welcome{
+.welcome{
   display: inline-block;
 }
 
@@ -58,14 +63,23 @@ a {
 }
 
 .heading h1 {
-  font-size: 80px;
+  font-size: 60px;
   margin-top: 5px;
-  font-family: 'Sedgwick Ave Display', cursive;
+  margin-left: 5px;
+  font-family: 'Raleway', sans-serif;
+  display: inline-block;
+}
+
+.heading h2 {
+  font-size: 20px;
+  margin-left:5px;
+  display: inline-block;
+  position: relative;
 }
 
 h2, h3, caption {
   margin: 0;
-  text-shadow: 0 0 15px #1c57ff;
+  /* text-shadow: 0 0 15px #1c57ff; */
 }
 
 h2 {
@@ -75,30 +89,37 @@ h2 {
 }
 
 h3, caption {
-  font-family:'Sedgwick Ave', cursive;
+  font-family:'Raleway', sans-serif;
 }
 
 .income-data {
-  width: 50%;
-  height:213px;
+  width: 70%;
+  height: calc(width);
+  overflow: hidden;
   margin: 0 auto;
   text-align: center;
   border: 2px solid white;
   border-radius: 5px;
   box-shadow: 0 3px 8px 0 #1c57ff;
-  padding-top: 10px;
-  background-color: black;
-  color:white;
+  background-color: white;
+  color:black;
 }
 
 .container {
     width: 50%;
     margin: 0 auto;
     margin-top: 5px;
+    text-align: center;
 }
 
 .table {
   width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#vertical-1, #vertical-2 {
+  width:50%;
   margin: 0 auto;
 }
 
@@ -111,6 +132,13 @@ th, td {
   border-radius: 5px;
   background-color: white;
   color: black;
+  min-width: 75px;
+  max-width: 75px;
+}
+
+th {
+  min-width: 100px;
+  max-width: 125px;
 }
 
 input {
@@ -129,8 +157,8 @@ button {
 
 .welcome {
   text-align:left;
-  float:left;
   margin-left: 20px;
+  margin-top: 5px;
 }
 
 .hidden {
@@ -171,7 +199,7 @@ td{
 
 .income-div{
   padding-top: 5px;
-  padding-bottom: 5px;
+  padding-bottom: 2px;
 }
 
 #sign-up-div {
@@ -183,4 +211,50 @@ td{
 #goBackLink {
   width:100%;
   padding-left:42%;
+}
+
+.notes {
+  font-family:'Raleway', sans-serif;
+  color: grey;
+  padding-top: 5px;
+}
+
+.monthly-income {
+  padding-top: 5px;
+  width: 100%;
+}
+
+#income, #remaining-funds{
+  border: 1px solid gray;
+  border-radius: 3px;
+  min-width: 50px;
+  max-width: 150px;
+  padding: 2px;
+}
+
+.create-b, .del-b {
+  min-width: 0;
+}
+
+.pay-it {
+  width: 100%;
+  font-weight: bold;
+  background-color: #1c57ff;
+  color: white;
+}
+
+.undo {
+  width: 100%;
+  font-weight: bold;
+  background-color: gray;
+  color: white;
+}
+
+.explainer {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family:'Raleway', sans-serif;
+
 }

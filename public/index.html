@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Budge My Life</title>
-    <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave|Sedgwick+Ave+Display|Montserrat+Alternates" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates|Raleway" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
     <header class="heading">
-      <h1>↞Budge My Life↠</h1>
+      <h1>budge my life</h1>
+      <h2>budgeting made simple</h2>
       <div id="sign-in">
         <form id="login-form">
           <input name="username" type="text" placeholder="username">
@@ -20,34 +21,46 @@
       </div>
     </header>
     <main>
+      <div class="explainer">
+        <p>Budge My Life is an app meant to simplify the creation of your budget.
+            We've cut down the process to five important steps: how much you make, how much you have in your account, 
+            how much you have in bills, how much you want to save, and if you've paid yet. Start by entering your
+            income, whether it be weekly, bi-weekly, monthly or whenever you get paid. Then, enter your current funds into the
+            "Total Remaining Funds" section. After that, hit "create" under either expenses or savings to add a row and get started!
+            Once you have a category, simply hit "paid" when you've paid the bill for your remaining funds to update. Make a mistake?
+            No problem! The undo button will rebalance your budget to where you were before you hit "paid". Happy Saving!
+        </p>
+        <button id="got-it" type="button">Got it!</button>
+      </div>
     <form id="budget-form">
       <div class="income-data">
         <h3 class="monthly-income">Weekly/Bi-Weekly/Monthly Income:</h3>
+        <h4 class="notes">(enter your weekly income and account balance here!)</h4>
         <div class="income-div">
           <h2 class="dollar">$</h2><h2 contenteditable="true" class ="income" id="income">0</h2>
           <button type="button" id="pay-day">Pay Day</button><button type="button" id="un-pay">Undo</button>
         </div>
-            <h3>Remaining Funds:</h3>
+            <h3>Total Remaining Funds:</h3>
             <div class="income-div">
               <h2 class="dollar">$</h2><h2 contenteditable="true" id="remaining-funds">0</h2>
             </div>
-            <h3>Bills Paid:</h3>
+            <h3>Bills Paid Today:</h3>
             <div class="income-div">
               <h2 class="dollar">$</h2><h2 id="bills-paid">0</h2>
             </div>
             
       </div>
-      <div class="container">
-        <div class="table">
+      <div class="table">
+          <h4 class="notes">(click "create" to add a new category for you budget!)</h4>
           <table id="vertical-1">
                   <caption><strong>Expenses</strong></caption>
                   <tr>
                       <th>Expense</th>
                       <td><strong>Amount</strong></td>
-                       <td><strong>Paid?</strong></td>
-                       <td><strong>Wait...</strong></td>
-                       <td><button class='add-row'>+</button>
-                        <td><button class='del-row'>-</button></td>
+                      <td><strong>Paid?</strong></td>
+                      <td><strong>Undo?</strong></td>
+                      <td class="create-b"><button class='add-row'>Create</button></td>
+                      <td class="del-b"><button class='del-row'>Remove</button></td>
                   </tr>
               </table>
               <table id="vertical-2">
@@ -55,15 +68,14 @@
                   <tr>
                     <th>Plan</th>
                     <td><strong>Amount</strong></td>
-                     <td><strong>Paid?</strong></td>
-                     <td><strong>Wait...</strong></td>
-                     <td><button class='add-row'>+</button></td>
-                     <td><button class='del-row'>-</button></td>
+                    <td><strong>Paid?</strong></td>
+                    <td><strong>Undo?</strong></td>
+                    <td class="create-b"><button class='add-row'>Create</button></td>
+                    <td class="del-b"><button class='del-row'>Remove</button></td>
                   </tr>
               </table>
               <button id="submit" type="submit">Submit</button>
         </div>
-      </div>
       </form>
       </main>
     <script
