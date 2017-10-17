@@ -45,7 +45,6 @@ function userLogin(formData){
 
   $.ajax(infoSettings);
   $('#login-form').addClass('hidden')
-  $('.explainer').addClass('hidden')
   $('#submit').removeClass('hidden')
 }
 
