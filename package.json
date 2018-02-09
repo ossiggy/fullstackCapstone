@@ -2,7 +2,7 @@
   "name": "budge-my-life",
   "version": "1.0.0",
   "description": "Budget app that allows you to track your income, expenses and savings",
-  "main": "app.js",
+  "main": "singupapp.js",
   "directories": {
     "test": "mocha"
   },

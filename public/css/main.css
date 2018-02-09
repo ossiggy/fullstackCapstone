@@ -3,21 +3,9 @@
   margin:0;
 }
 
-body {
-  background-color: white; 
-  color: black;
-  background-repeat: no-repeat;
-	background-size: cover;
-  background-position: 50% 25%;
-  background-attachment: fixed;
-
-}
-
-  .heading { 
-  background-repeat: no-repeat;
-	background-size: cover;
-  background-position: 50% 25%;
-  background-color: gray;
+.heading { 
+  background-color: #0B00FF;
+  font-family: 'Raleway', sans-serif;
   overflow: hidden;
   position:fixed;
   top:0;
@@ -25,236 +13,42 @@ body {
   width:100%;
   z-index:100;
   color: white;
-  text-shadow: 0 0 15px #1c57ff;
-  height: 100px;
+  box-shadow: 0 0 15px #303030;
+  height: 50px;
   text-align: left;
-  border-bottom: 5px solid #1c57ff;
-  border-left: 2px solid #1c57ff;
-  border-right: 2px solid #1c57ff;
 }
 
-#sign-in {
-  text-align: right;
-  margin-right: 20px;
-  display: inline-block;
-  padding-top: 50px;
-  width: 47%;
-  position: absolute;
-  clear: left;
+.heading h1{
+  font-family: 'Dhurjati', sans-serif;
 }
 
-.welcome{
-  display: inline-block;
+#sign-in-button{
+border-radius: 5px;
+font-size: 20px;
 }
-
-th.changeable.name {
-  font-weight: normal;
-}
-
-#sign-in button {
-  height:22px;
-  background-color:#1c57ff;
-  color: white;
-}
-
-a {
-  color: #1c57ff;
-  text-shadow: 0 0 0 20px white;
-}
-
-.heading h1 {
-  font-size: 60px;
-  margin-top: 5px;
-  margin-left: 5px;
-  font-family: 'Raleway', sans-serif;
-  display: inline-block;
-}
-
-.heading h2 {
-  font-size: 20px;
-  margin-left:5px;
-  display: inline-block;
-  position: relative;
-}
-
-h2, h3, caption {
-  margin: 0;
-  /* text-shadow: 0 0 15px #1c57ff; */
-}
-
-h2 {
-  font-family: 'Montserrat Alternates', sans-serif;
-  clear: left;
-  display: inline-block;
-}
-
-h3, caption {
-  font-family:'Raleway', sans-serif;
-}
-
-.income-data {
-  width: 70%;
-  height: calc(width);
-  overflow: hidden;
-  margin: 0 auto;
-  text-align: center;
-  border: 2px solid white;
-  border-radius: 5px;
-  box-shadow: 0 3px 8px 0 #1c57ff;
-  background-color: white;
-  color:black;
-}
-
-.container {
-    width: 50%;
-    margin: 0 auto;
-    margin-top: 5px;
-    text-align: center;
-}
-
-.table {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-#vertical-1, #vertical-2 {
-  width:50%;
-  margin: 0 auto;
-}
-
-main {
-  padding-top:110px;
-}
-
-th, td {
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: white;
-  color: black;
-  min-width: 75px;
-  max-width: 75px;
-}
-
-th {
-  min-width: 100px;
-  max-width: 125px;
-}
-
-input {
-  border-radius: 5px;
-}
-
-.button {
-  border: none;
-}
-
-button {
-  height:30px;
-  border-radius: 5px;
-  background-color: white;
-}
-
-.welcome {
-  text-align:left;
-  margin-left: 20px;
-  margin-top: 5px;
-}
-
-.hidden {
-  display: none;
-}
-
-td{
-  height:100%;
-}
-
-.pay-it .undo{
-  height:100%;
-  width:100%;
-}
-
-[contenteditable="true"] {
-    white-space: nowrap;
-    overflow: hidden;
-} 
-[contenteditable="true"] br {
-    display:none;
-
-}
-[contenteditable="true"] * {
-    display:inline;
-    white-space:nowrap;
-}
-
-.dollar {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-#income, #remaining-funds, #pay-day, #bills-paid {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.income-div{
-  padding-top: 5px;
-  padding-bottom: 2px;
-}
-
-#sign-up-div {
-  width:100%;
-  padding-top: 200px;
-  padding-left: 47%;
-}
-
-#goBackLink {
-  width:100%;
-  padding-left:42%;
-}
-
-.notes {
-  font-family:'Raleway', sans-serif;
-  color: grey;
-  padding-top: 5px;
-}
-
-.monthly-income {
-  padding-top: 5px;
-  width: 100%;
-}
-
-#income, #remaining-funds{
-  border: 1px solid gray;
-  border-radius: 3px;
-  min-width: 50px;
-  max-width: 150px;
-  padding: 2px;
-}
-
-.create-b, .del-b {
-  min-width: 0;
-}
-
-.pay-it {
-  width: 100%;
-  font-weight: bold;
-  background-color: #1c57ff;
-  color: white;
-}
-
-.undo {
-  width: 100%;
-  font-weight: bold;
-  background-color: gray;
-  color: white;
-}
-
-.explainer {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  font-family:'Raleway', sans-serif;
-
-}
+/* @media screen and (max-width: 320px){
+  .heading h2{
+    font-size: 14px;
+  }
+} */
+/* too many buttons, too much going on
+make it more digestible
+have the text as the landing page 
+with a sign-in/sign-up option
+break up text into bullet points
+go for more eye candy on the front page
+put text over semi-opaque background
+full screen background image
+high contrast when combining colors
+make signup a button
+have them below text
+sign up page is very empty
+make inputs bigger
+space them out more
+full screen background image
+keep header consistent
+move sign up header to above form
+look into sign-up.sign in bug that doesnt let you sign in
+project needs refinement
+morgan is available for contact if any design questions
+*/

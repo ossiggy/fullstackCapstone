@@ -1,14 +1,16 @@
+'use strict';
+
 $('#login-form').on('submit', function(event){
   event.preventDefault();
-  this.childNodes[5].disabled = true
+  this.childNodes[5].disabled = true;
   const formData = {};
 
   $('#login-form input').each(function(){
     let {name, value} = this;
     formData[name] = value;
   });
-  userLogin(formData)
-})
+  userLogin(formData);
+});
 
 function userLogin(formData){
 
@@ -27,13 +29,13 @@ function userLogin(formData){
 
     $.get('api/users/'+res.id)
       .then(res => {
-        console.log(res)
-        Cookies.set('username', res.username)
-      })
-      $('#sign-in').append(
-        `<h3 class='welcome'>Welcome ${username}!</h3>`
-      )
-    }
+        console.log(res);
+        Cookies.set('username', res.username);
+      });
+    $('#sign-in').append(
+      `<h3 class='welcome'>Welcome ${username}!</h3>`
+    );
+  }
 
   const infoSettings = {
     url: loginURL,
@@ -47,7 +49,7 @@ function userLogin(formData){
   };
 
   $.ajax(infoSettings);
-  $('#login-form').addClass('hidden')
-  $('#submit').removeClass('hidden')
+  $('#login-form').addClass('hidden');
+  $('#submit').removeClass('hidden');
 }
 
