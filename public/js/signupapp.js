@@ -1,5 +1,4 @@
 $('#sign-up-submit').on('submit', createUser);
-$('#sign-in-button').on('click', showLogin);
 $('.explainer').on('click', '#go-back', goBack);
 $('.demo-mode').on('click', signInDemo)
 
@@ -27,14 +26,13 @@ function createUser(event){
   };
 
   function handleSuccess(success){
-    $('body').append(
-      `<a id="goBackLink" href='/'>Go back, fill out your budget and log in, then click Sign In!</a>`
-    )
-  }
+
   console.log(userObject)
 
   $.ajax(infoSettings)
   .then(function(){alert('User Created!')})
+
+  document.location = '/budget';
 }
 
 function showLogin(event){
@@ -125,9 +123,10 @@ function signInDemo(event){
       }
     };
   
-   document.location = '/budget';
-  
-    $.ajax(infoSettings);
-    $('#login-form').addClass('hidden');
-    $('#submit').removeClass('hidden');
+    document.location = '/budget';
+    
+      $.ajax(infoSettings);
+      $('#login-form').addClass('hidden');
+      $('#submit').removeClass('hidden');
+  }
 }
