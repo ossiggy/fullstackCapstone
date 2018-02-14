@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/newuser', jsonParser, (req, res) => {
-  const requiredFields = ['username', 'password', 'email', 'firstName', 'lastName'];
+  const requiredFields = ['username', 'password', 'email'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if(missingField) {
@@ -42,7 +42,7 @@ router.post('/newuser', jsonParser, (req, res) => {
     });
   };
 
-  const stringFields = ['username', 'password', 'email', 'firstName', 'lasName'];
+  const stringFields = ['username', 'password', 'email'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
   );
@@ -72,7 +72,7 @@ router.post('/newuser', jsonParser, (req, res) => {
 
   const sizedFields = {
     username: {
-      min: 5,
+      min: 4,
       max: 15
     },
     password: {
@@ -104,9 +104,7 @@ router.post('/newuser', jsonParser, (req, res) => {
     });
   }
 
-  let {username, password, email, firstName = '', lastName = ''} = req.body
-  firstName = firstName.trim();
-  lastName = lastName.trim();
+  let {username, password, email} = req.body
 
   return User.find({username})
     .count()
@@ -125,8 +123,6 @@ router.post('/newuser', jsonParser, (req, res) => {
       return User.create({
         username,
         password: hash,
-        firstName,
-        lastName,
         email
       });
     })

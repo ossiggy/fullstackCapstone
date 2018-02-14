@@ -1,20 +1,17 @@
 $('#sign-up-submit').on('submit', createUser);
 $('#sign-in-button').on('click', showLogin);
 $('.explainer').on('click', '#go-back', goBack);
+$('.demo-mode').on('click', signInDemo)
 
 function createUser(event){
   event.preventDefault();
   const username = $('input[name="username"]').val();
   const password = $('input[name="password"]').val();
-  const firstName = $('input[name="first-name"]').val();
-  const lastName = $('input[name="last-name"]').val();
   const email = $('input[name="email"]').val();
 
   const userObject = {
     username: username,
     password: password,
-    firstName: firstName,
-    lastName: lastName,
     email: email
   }
 
@@ -49,10 +46,12 @@ function showLogin(event){
   $('.explainer').append(
     `<div id="sign-in">
       <form id="login-form">
-        <input name="username" type="text" placeholder="username">
-        <input name="password" type="password" placeholder="password">
-        <button type="submit" id="login-button">Sign In</button>
-        <button type="button" id="go-back">Go Back</button>   
+        <div class="input-div col-12">
+          <input name="username" type="text" placeholder="username">
+          <input name="password" type="password" placeholder="password">
+          <button type="button" id="login-button">Sign In</button>
+          <button type="button" id="go-back">Go Back</button>  
+        </div> 
       </form>
     </div>`
   )
@@ -77,10 +76,58 @@ function goBack(event){
     <form id="sign-up-submit" class="col-4 offset-4">
       <input name="username" type="text" placeholder="username"><br>
       <input name="password" type="password" placeholder="password"><br>
-      <input name="first-name" type="text" placeholder="first name"><br>
-      <input name="last-name" type="text" placeholder="last name"><br>
       <input name="email" type="email" placeholder="email"><br>
       <button type="submit" class="sign-up-submit">Submit</button>
     </form>
   `);
+}
+
+function signInDemo(event){
+  event.preventDefault();
+
+  const loginURL = '/api/auth/login';
+  const username = 'demo';
+  const password = '12345678'
+
+  const formData = {
+    username: username,
+    password: password
+  }
+  
+    function setHeader(req){
+      const encodedString = btoa(`${username}:${password}`);
+      req.setRequestHeader('Authorization', 'Basic ' + encodedString);
+    }
+  
+    function handleSuccess(res){
+  
+      Cookies.set('authToken', res.authToken);
+      Cookies.set('userId', res.id);
+  
+      $.get('api/users/'+res.id)
+        .then(res => {
+          console.log(res);
+          Cookies.set('username', res.username);
+        });
+      $('#sign-in').append(
+        `<h3 class='welcome'>Welcome ${username}!</h3>`
+      );
+    }
+  
+    const infoSettings = {
+      url: loginURL,
+      type: 'POST',
+      beforeSend: setHeader,
+      data: formData,
+      success: handleSuccess,
+      error: function(err){
+        console.log(err);
+      }
+    };
+  
+   document.location = '/budget';
+  
+    $.ajax(infoSettings);
+    $('#login-form').addClass('hidden');
+    $('#submit').removeClass('hidden');
 }

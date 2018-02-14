@@ -11,6 +11,7 @@
     <header class="heading">
       <h1>Budge My Life</h1>
       <h2>budgeting made simple</h2>
+      <button type="button" id="log-out">Log Out</button>
     </header>
     <main>
     <form id="budget-form">
@@ -31,8 +32,8 @@
             </div>
             
       </div>
-      <div class="table">
-          <h4 class="notes">(click "create" to add a new category for you budget!)</h4>
+      <div class="table col-10">
+          <h4 class="notes">(click the "+" to add a new category for you budget!)</h4>
           <table id="vertical-1">
                   <caption><strong>Expenses</strong></caption>
                   <tr>
@@ -40,8 +41,8 @@
                       <td><strong>Amount</strong></td>
                       <td><strong>Paid?</strong></td>
                       <td><strong>Undo?</strong></td>
-                      <td class="create-b"><button class='add-row'>Create</button></td>
-                      <td class="del-b"><button class='del-row'>Remove</button></td>
+                      <td class="create-b"><button class='add-row'>+</button></td>
+                      <td class="del-b"><button class='del-row'>-</button></td>
                   </tr>
               </table>
               <table id="vertical-2">
@@ -51,14 +52,14 @@
                     <td><strong>Amount</strong></td>
                     <td><strong>Paid?</strong></td>
                     <td><strong>Undo?</strong></td>
-                    <td class="create-b"><button class='add-row'>Create</button></td>
-                    <td class="del-b"><button class='del-row'>Remove</button></td>
+                    <td class="create-b"><button class='add-row'>+</button></td>
+                    <td class="del-b"><button class='del-row'>-</button></td>
                   </tr>
               </table>
-              <button id="submit" type="submit" class="hidden">Submit</button>
+              <button id="submit" type="submit">Submit</button>
         </div>
       </form>
-      </main>
+    </main>
     <script
       src="/js/jquery-3.2.1.min.js">
     </script>

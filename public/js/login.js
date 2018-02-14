@@ -1,8 +1,8 @@
 'use strict';
 
-$('#login-form').on('submit', function(event){
+$('.explainer').on('click', '#login-button', function(event){
   event.preventDefault();
-  this.childNodes[5].disabled = true;
+  console.log('submit')
   const formData = {};
 
   $('#login-form input').each(function(){
@@ -24,6 +24,7 @@ function userLogin(formData){
   }
 
   function handleSuccess(res){
+
     Cookies.set('authToken', res.authToken);
     Cookies.set('userId', res.id);
 
@@ -47,6 +48,8 @@ function userLogin(formData){
       console.log(err);
     }
   };
+
+ document.location = '/budget';
 
   $.ajax(infoSettings);
   $('#login-form').addClass('hidden');

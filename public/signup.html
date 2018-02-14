@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Sign Up</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-  <link href="/css/main.css" rel="stylesheet" type="text/css"/>
   <link href="/css/grid.css" rel="stylesheet" type="text/css" />
   <link href="/css/signup.css" rel="stylesheet" type="text/css" />
 </head>
@@ -18,32 +17,32 @@
     </div>
     <button id='sign-in-button' class='col-2'>Sign In</button>
   </header>
-  <div class='background col-12'></div>
+  <div class="button-container col-2">
+    <button type="button" class="demo-mode">Demo Mode</button>
+  </div>
   <div class="explainer col-10 offset-1">
-    <h2>Budge My Life is an app meant to simplify the creation of your budget</h2>
-      <ul class="col-6 offset-3">Put in:<br>
-        <li>How much you have in your account</li> 
-        <li>How much you make</li> 
-        <li>How much you pay in bills</li> 
-        <li>How much you want to save</li> 
-      </ul>
+    <div class="explainer-text col-10 offset-1">
+      <h2>Budge My Life is an app meant to simplify the creation of your budget</h2>
+        <ul class="col-6 offset-3">Put in:<br>
+          <li>How much you have in your account</li> 
+          <li>How much you make</li> 
+          <li>How much you pay in bills</li> 
+          <li>How much you want to save</li> 
+        </ul>
+    </div>
   </div>
     <div id="sign-up-div" class="col-12">
       <h2 id="sign-up-here" class="col-4 offset-4">Sign Up</h2>
       <form id="sign-up-submit" class="col-4 offset-4">
         <input name="username" type="text" placeholder="username"><br>
         <input name="password" type="password" placeholder="password"><br>
-        <input name="first-name" type="text" placeholder="first name"><br>
-        <input name="last-name" type="text" placeholder="last name"><br>
         <input name="email" type="email" placeholder="email"><br>
         <button type="submit" class="sign-up-submit">Submit</button>
       </form>
     </div>
-  <script
-  src="/js/jquery-3.2.1.min.js">
-</script>
-<script
-src="/js/signupapp.js">
-</script>
+  <script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/signupapp.js"></script>
+<script src="/js/login.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 </body>
 </html>

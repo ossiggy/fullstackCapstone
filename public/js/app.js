@@ -1,12 +1,13 @@
-$('#login-form').on('submit', loadState)
-$('#pay-day').on('click', payDay)
-$('#budget-form').on('click','.pay-it', payBill)
+$(document).ready(loadState);
+$('#pay-day').on('click', payDay);
+$('#budget-form').on('click','.pay-it', payBill);
 $('#budget-form').on('submit', createState);
-$('.add-row').on('click', addRow)
-$('.del-row').on('click', delRow)
-$('form').on('click','.undo', undo)
-$('#un-pay').on('click', unPay)
-$('#got-it').on('click', gotIt)
+$('.add-row').on('click', addRow);
+$('.del-row').on('click', delRow);
+$('form').on('click','.undo', undo);
+$('#un-pay').on('click', unPay);
+$('#got-it').on('click', gotIt);
+$('#log-out').on('click', logOut);
 
 let loadedState = {}
 
@@ -30,9 +31,6 @@ function render(state){
   const income = $('#income')
   const availableIncome = $('#remaining-funds')
   if(!signedInUser){
-    $('#sign-in').append(
-      `<h3 class='welcome'>Welcome ${username}!</h3>`
-    )
     $('#income').html(`${state.weeklyIncome}`)
     $('#vertical-1').children().siblings().children('.tableData').remove()
     $('#vertical-2').children().siblings().children('.tableData').remove()
@@ -184,4 +182,13 @@ function updateState(object) {
     console.log('success')
     alert('Budget Saved!')
   })
+}
+
+function logOut(event){
+  event.preventDefault();
+
+  Cookies.set('authToken', '');
+  Cookies.set('userId', '');
+
+  document.location = '/';
 }

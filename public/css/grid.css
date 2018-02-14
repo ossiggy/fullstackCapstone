@@ -32,24 +32,24 @@
 
 
 @media screen and (min-width: 886px) {
-.offset-1{
-  margin-left: 80px;
-}
+  .offset-1{
+    margin-left: 80px;
+  }
 
   .offset-2{
     margin-left: 160px;
-  }
-
-  .offset-4{
-    margin-left: 33.34%;
   }
 
   .offset-3{
     margin-left: 25%;
   }
 
+  .offset-4{
+    margin-left: 33.34%;
+  }
+ß
   .offset-5{
-    margin-left: 41.67%;
+    margin-left: 41.7%;
   }
 
   .col-1{

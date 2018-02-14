@@ -4,8 +4,10 @@
 }
 
 .heading { 
-  background-color: #0B00FF;
-  font-family: 'Raleway', sans-serif;
+  background-repeat: no-repeat;
+	background-size: cover;
+  background-position: 50% 25%;
+  background-color: gray;
   overflow: hidden;
   position:fixed;
   top:0;
@@ -13,24 +15,302 @@
   width:100%;
   z-index:100;
   color: white;
-  box-shadow: 0 0 15px #303030;
-  height: 50px;
+  text-shadow: 0 0 15px #1c57ff;
+  height: 75px;
   text-align: left;
+  border-bottom: 5px solid #1c57ff;
+  border-left: 2px solid #1c57ff;
+  border-right: 2px solid #1c57ff;
 }
 
-.heading h1{
-  font-family: 'Dhurjati', sans-serif;
+#sign-in {
+  text-align: right;
+  margin-right: 20px;
+  display: inline-block;
+  padding-top: 50px;
+  width: 47%;
+  position: absolute;
+  clear: left;
 }
 
-#sign-in-button{
-border-radius: 5px;
-font-size: 20px;
+.welcome{
+  display: inline-block;
 }
-/* @media screen and (max-width: 320px){
-  .heading h2{
-    font-size: 14px;
+
+th.changeable.name {
+  font-weight: normal;
+}
+
+#sign-in button {
+  height:22px;
+  background-color:#1c57ff;
+  color: white;
+}
+
+a {
+  color: #1c57ff;
+  text-shadow: 0 0 0 20px white;
+}
+
+.heading h1 {
+  font-size: 50px;
+  margin-top: 5px;
+  margin-left: 5px;
+  font-family: 'Raleway', sans-serif;
+  display: inline-block;
+}
+
+.heading h2 {
+  font-size: 20px;
+  margin-left:5px;
+  display: inline-block;
+  position: relative;
+}
+
+h2, h3, caption {
+  margin: 0;
+  /* text-shadow: 0 0 15px #1c57ff; */
+}
+
+h2 {
+  font-family: 'Montserrat Alternates', sans-serif;
+  clear: left;
+  display: inline-block;
+}
+
+h3, caption {
+  font-family:'Raleway', sans-serif;
+}
+
+.income-data {
+  width: 70%;
+  height: calc(width);
+  overflow: hidden;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 5px;
+  box-shadow: 0 3px 8px 0 #1c57ff;
+  background-color: white;
+  color:black;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.table {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#vertical-1, #vertical-2 {
+  width:50%;
+  margin: 0 auto;
+}
+
+main {
+  padding-top:110px;
+}
+
+th, td {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  width: 50%;
+}
+
+th {
+  min-width: 100px;
+  max-width: 125px;
+}
+
+input {
+  border-radius: 5px;
+}
+
+.button {
+  border: none;
+}
+
+button {
+  height:30px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+#log-out{
+  position: absolute;
+  top: 30px;
+  right: 5px;
+}
+
+.welcome {
+  text-align:left;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+td{
+  height:100%;
+}
+
+.pay-it .undo{
+  height:100%;
+  width:100%;
+}
+
+[contenteditable="true"] {
+    white-space: nowrap;
+    overflow: hidden;
+} 
+[contenteditable="true"] br {
+    display:none;
+
+}
+[contenteditable="true"] * {
+    display:inline;
+    white-space:nowrap;
+}
+
+.dollar {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#income, #remaining-funds, #pay-day, #bills-paid {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.income-div{
+  padding-top: 5px;
+  padding-bottom: 2px;
+}
+
+#goBackLink {
+  width:100%;
+  padding-left:42%;
+}
+
+.notes {
+  font-family:'Raleway', sans-serif;
+  color: grey;
+  padding-top: 5px;
+}
+
+.monthly-income {
+  padding-top: 5px;
+  width: 100%;
+}
+
+#income, #remaining-funds{
+  border: 1px solid gray;
+  border-radius: 3px;
+  min-width: 50px;
+  max-width: 150px;
+  padding: 2px;
+}
+
+.create-b, .del-b {
+  min-width: 0;
+}
+
+.create-b {
+  background-color: #00A700;
+  width: 50px;
+}
+
+.del-b {
+  background-color: #B80000;
+}
+
+.add-row{
+  background-color: lime;
+  border: lime;
+  width: 35px;
+  font-size: 24px;
+}
+
+.del-row{
+background-color: red;
+border: lime;
+width: 35px;
+font-size: 24px;
+}
+
+.add-row, .del-row{
+  cursor: pointer;
+}
+
+.pay-it {
+  width: 100%;
+  font-weight: bold;
+  background-color: #1c57ff;
+  color: white;
+}
+
+.undo {
+  width: 100%;
+  font-weight: bold;
+  background-color: gray;
+  color: white;
+}
+
+.explainer {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family:'Raleway', sans-serif;
+  margin-top: 100px;
+}
+
+@media screen and (max-width: 660px){
+
+  main{
+    padding-top: 60px;
   }
-} */
+
+  .heading h1{
+    font-size: 30px;
+  }
+
+  .heading h2{
+    font-size: 20px;
+  }
+
+  .heading{
+    height: 50px;
+  }
+
+  #log-out{
+    top: 10px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .heading h2{
+    display: none;
+  }
+
+  .heading h1{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
 /* too many buttons, too much going on
 make it more digestible
 have the text as the landing page 
