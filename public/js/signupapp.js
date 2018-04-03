@@ -1,9 +1,11 @@
 $('#sign-up-submit').on('submit', createUser);
+$('#sign-in-button').on('click', showLogin);
 $('.explainer').on('click', '#go-back', goBack);
 $('.demo-mode').on('click', signInDemo)
 
 function createUser(event){
   event.preventDefault();
+  console.log('creating')
   const username = $('input[name="username"]').val();
   const password = $('input[name="password"]').val();
   const email = $('input[name="email"]').val();
@@ -26,14 +28,11 @@ function createUser(event){
   };
 
   function handleSuccess(success){
+    $.ajax(infoSettings)
+    .then(function(){alert('User Created!')})
+  }
+}  
 
-  console.log(userObject)
-
-  $.ajax(infoSettings)
-  .then(function(){alert('User Created!')})
-
-  document.location = '/budget';
-}
 
 function showLogin(event){
   event.preventDefault();
@@ -123,10 +122,9 @@ function signInDemo(event){
       }
     };
   
-    document.location = '/budget';
-    
-      $.ajax(infoSettings);
-      $('#login-form').addClass('hidden');
-      $('#submit').removeClass('hidden');
-  }
+   document.location = '/budget';
+  
+    $.ajax(infoSettings);
+    $('#login-form').addClass('hidden');
+    $('#submit').removeClass('hidden');
 }

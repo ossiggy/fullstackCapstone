@@ -1,6 +1,6 @@
 exports.DATABASE_URL = process.env.DATABASE_URL ||
                        global.DATABASE_URL ||
-                      'mongodb://admin:12345678@ds155080.mlab.com:55080/budge-my-life'
+                       'mongodb://localhost/budge-my-life';
 exports.TEST_DATABASE_URL = (
   process.env.TEST_DATABASE_URL ||
   'mongodb://localhost/test-budge-my-life');
