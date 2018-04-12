@@ -76,9 +76,6 @@ describe('Budge My Life', function(){
   })
 
   it('Should list specific budget on GET', function(){
-    //write get endpoint in server
-    //return all budgets
-    //search for one budget of that response
     let _res;
     return chai.request(app)
       .get('/budgets')
