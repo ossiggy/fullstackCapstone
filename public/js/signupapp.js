@@ -3,6 +3,8 @@ $('#sign-in-button').on('click', showLogin);
 $('.explainer').on('click', '#go-back', goBack);
 $('.demo-mode').on('click', signInDemo)
 
+const API_BASE_URL = require('../config');
+
 function createUser(event){
   event.preventDefault();
   console.log('creating')
@@ -17,7 +19,7 @@ function createUser(event){
   }
 
   const infoSettings = {
-    url: 'http://localhost:8080/api/users/newuser',
+    url: `${API_BASE_URL}/users/newuser`,
     type: 'post',
     contentType: 'application/json',
     data: JSON.stringify(userObject),

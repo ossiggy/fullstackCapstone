@@ -12,7 +12,7 @@ router.use(cookieParser())
 
 mongoose.Promise=global.Promise;
 
-router.get('/budgets', (req, res) => {
+router.get('/', (req, res) => {
   Budget
     .find()
     .populate('categories')
@@ -28,7 +28,7 @@ router.get('/budgets', (req, res) => {
     })
 })
 
-router.get('/budgets/:userId', (req, res) => {
+router.get('/:userId', (req, res) => {
   if(!Budget){
     Budget.findOne({'_id': '5a7e13839578ad626db524ab'})
     .populate('categories')
@@ -59,7 +59,7 @@ router.get('/budgets/:userId', (req, res) => {
       }
   })
 
-router.post('/budgets', (req, res) => {
+router.post('/', jsonParser, (req, res) => {
   const requiredFields = ['availableIncome', 'weeklyIncome', 'categories']
   for(let i=0; i<requiredFields.length; i++){
     const field = requiredFields[i]
@@ -98,7 +98,7 @@ Budget
       })   
 })
 
-router.put('budgets/:id', (req, res) => {
+router.put('/:id', jsonParser, (req, res) => {
   if(!(req.params.id && req.body.id && req.params.id)){
     const message = (
       `Request patch id (${req.params.id} and request body id (${req.body.id}) must match)`)
@@ -122,7 +122,7 @@ router.put('budgets/:id', (req, res) => {
     .catch(err => res.status(500).json({message: 'Internal server error'}))
 })
 
-router.delete('/budgets/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   Budget
     .findByIdAndRemove(req.params.id)
     .exec()
@@ -130,4 +130,4 @@ router.delete('/budgets/:id', (req, res) => {
     .catch(err => res.status(500).json({message: 'Inernal server error'}))
 })
 
-module.exports = router;
+module.exports = {router};

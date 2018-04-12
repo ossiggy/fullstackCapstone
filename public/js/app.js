@@ -9,6 +9,8 @@ $('#un-pay').on('click', unPay);
 $('#got-it').on('click', gotIt);
 $('#log-out').on('click', logOut);
 
+const API_BASE_URL = require('../config');
+
 let loadedState = {}
 
 function loadState(event){
@@ -173,7 +175,7 @@ function updateState(object) {
   //post request make assumptions about the request (aka urlencoded responses) while 
   //ajax requests will be custom made requests that you can design for you
   $.ajax({
-    url: "http://localhost:8080/budgets",
+    url: `${API_BASE_URL}/budgets`,
     type: "post",
     contentType: "application/json",
     data: JSON.stringify(object)

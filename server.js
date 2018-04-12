@@ -8,10 +8,10 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
-const budgetRouter = require('./budgets/budgetRouter');
 require('dotenv').config();
 
 const {router: usersRouter} = require('./users');
+const {router: budgetRouter} = require('./budgets');
 const {router: authRouter, basicStrategy, jwtStrategy} = require('./auth');
 
 const {DATABASE_URL, PORT} = require('./config');
@@ -37,8 +37,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(budgetRouter);
-
 mongoose.Promise=global.Promise;
 
 app.use(passport.initialize());
@@ -46,7 +44,8 @@ passport.use(basicStrategy);
 passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
-app.use('/api/auth', authRouter);
+app.use('/api/auth/', authRouter);
+app.use('/api/budgets/', budgetRouter);
 
 app.get(
   '/api/protected',
