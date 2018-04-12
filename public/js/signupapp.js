@@ -20,17 +20,19 @@ function createUser(event){
     url: '/api/users/newuser',
     type: 'post',
     contentType: 'application/json',
-    data: JSON.stringify(userObject),
     success: handleSuccess,
+    data: JSON.stringify(userObject),
     error: function(err){
       console.log(err)
     }
   };
 
-  function handleSuccess(success){
-    $.ajax(infoSettings)
-    .then(function(){alert('User Created!')})
+  function handleSuccess(){
+    alert('success')
   }
+
+  $.ajax(infoSettings)
+
 }  
 
 
