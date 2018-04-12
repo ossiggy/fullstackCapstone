@@ -9,13 +9,20 @@ $('#un-pay').on('click', unPay);
 $('#got-it').on('click', gotIt);
 $('#log-out').on('click', logOut);
 
+let loadedState = {}
+
 function loadState(event){
   const ID = Cookies.get('userId')
   var url = "/budgets/" + ID
   $.getJSON(url, function(response){
     console.log(response)
-    render(response)
+    storeLocally(response)
 	})
+}
+
+function storeLocally(state) {
+  loadedState = state
+  render(loadedState)
 }
 
 function render(state){
