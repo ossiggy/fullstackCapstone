@@ -13,7 +13,7 @@ let loadedState = {}
 
 function loadState(event){
   const ID = Cookies.get('userId')
-  var url = "/budgets/" + ID
+  var url = "/api/budgets/" + ID
   $.getJSON(url, function(response){
     console.log(response)
     storeLocally(response)

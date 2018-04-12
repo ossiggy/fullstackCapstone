@@ -85,8 +85,8 @@ function signInDemo(event){
   event.preventDefault();
 
   const loginURL = '/api/auth/login';
-  const username = 'demo';
-  const password = '12345678'
+  const username = 'demomode';
+  const password = 'password'
 
   const formData = {
     username: username,
@@ -120,7 +120,7 @@ function signInDemo(event){
       data: formData,
       success: handleSuccess,
       error: function(err){
-        console.log(err);
+        console.log('shit');
       }
     };
   
